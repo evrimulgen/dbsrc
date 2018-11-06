@@ -173,7 +173,7 @@ enjoying a several-fold potential performance advantage.
 					includes 5 scripts: create, create-ordered, drop, manifest, define
 					writing create only takes ~4m
 
-## comprehensive and correct? YES
+## comprehensive and correct? (tentative) YES
 	successfully generated a build script
 	success = executed against vanilla oracle db with no errors and no invalid
 			objects!
@@ -258,9 +258,25 @@ learnings:
 * Like any custom-built utility, it will likely only survive until its
 	  builder and maintainer moves on.
 
-# Logical Data Model
+# (7) Data Model
 
-![Logical Data Model](https://github.com/SteveRutledge/dbsrc/blob/master/notes/DBSRC Librarian - Logical Data Model.png "Logical Data Model")
+## Logical
+
+![Logical Data Model](https://github.com/SteveRutledge/dbsrc/blob/master/notes/DBSRC_Librarian_Logical_Data_Model.png "Logical Data Model")
+
+## Physical
+
+![Physical Data Model](https://github.com/SteveRutledge/dbsrc/blob/master/notes/DBSRC_Librarian_Physical_Data_Model.png "Physical Data Model")
+
+# (8) PL/SQL Package
+
+![DBSRC_MGR PL/SQL Package](https://github.com/SteveRutledge/dbsrc/blob/master/notes/DBSRC_Librarian_PLSQL_Package.png "DBSRC_MGR PL/SQL Package")
+
+# (9) Files
+
+![Install Files](https://github.com/SteveRutledge/dbsrc/blob/master/notes/DBSRC_Librarian_install_files.png "Install Files")
+
+![Files](https://github.com/SteveRutledge/dbsrc/blob/master/notes/DBSRC_Librarian_files.png "Files")
 
 # (7) Next Steps
 * continue use as a personal utility to further evaluate functionality and
