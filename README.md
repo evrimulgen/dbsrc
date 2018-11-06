@@ -16,7 +16,7 @@ may be useful to someone somehow...
 
 	GNU Public License details.
 
-## /DESIGN_NOTES.txt
+## /DESIGN_NOTES.md
 
 	"under the hood" notes for those who want to understand how it works.
 
@@ -30,7 +30,7 @@ may be useful to someone somehow...
 	and database credentials within the cmd window you will use to execute
 	scripts from /bin.
 
-## /README.txt
+## /README.md
 
 	This file.
 
