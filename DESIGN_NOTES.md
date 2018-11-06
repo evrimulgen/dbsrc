@@ -16,8 +16,6 @@
 	along with DBSRC Librarian (see file COPYING.txt).  
 	If not, see <https://www.gnu.org/licenses/>.
 
-	***
-
 # (1) Introduction
 
 This is a utility for comprehensive, flexible, performant DDL export of
@@ -127,7 +125,7 @@ extensions: types, xmlschema, etc.
 * Would need significant dba buy-in and involvement for setup and ongoing
 	admin of approach. Also, need to purchase license. Not attractive.
 	
-## (5) oracle supplied dbms_metadata PL/SQL API, wrapped in custom scripts
+## (5) Oracle-supplied dbms_metadata PL/SQL API, wrapped in custom scripts
 ## (This is the selected approach)
 
 * A 3rd party utility Will be fundamentally less comprehensive and
@@ -145,9 +143,9 @@ enjoying a several-fold potential performance advantage.
 * free (as in "comes-with" something we are alreadying paying for).
 * Should be Possibly feasible. Lets do a proof-of-concept.
 
-# (6) Design Notes
+# (6) General Approach
 
-## general design approach
+## Design Points
 * use large complex system as a test case
 * wrap oracle dbms_metadata supplied PL/SQL package with custom package
 		to adapt to our needs
@@ -173,12 +171,12 @@ enjoying a several-fold potential performance advantage.
 					includes 5 scripts: create, create-ordered, drop, manifest, define
 					writing create only takes ~4m
 
-## comprehensive and correct? (tentative) YES
+## comprehensive and correct results ? (tentative) YES
 	successfully generated a build script
 	success = executed against vanilla oracle db with no errors and no invalid
 			objects!
 
-learnings:
+## learnings:
 * Custom post-processing was the most complex part. Without it, the raw
 	  exported DDL was not very useful.
 * No clear way to tell from the db which roles are used by which
@@ -274,7 +272,11 @@ learnings:
 
 # (9) Files
 
+## Install
+
 ![Install Files](https://github.com/SteveRutledge/dbsrc/blob/master/notes/DBSRC_Librarian_install_files.png "Install Files")
+
+## Everything Else
 
 ![Files](https://github.com/SteveRutledge/dbsrc/blob/master/notes/DBSRC_Librarian_files.png "Files")
 
@@ -289,9 +291,9 @@ learnings:
 
 http://www.red-gate.com
 
-dbForge Schema Compare for Oracle (devart.com)
+DBForge Schema Compare for Oracle (devart.com)
 
-liquiBase
+LiquiBase
 
 http://www.sumsoftsolutions.com/svco/
 
@@ -302,5 +304,4 @@ http://blog.codinghorror.com/get-your-database-under-version-control/
 https://www.simple-talk.com/sql/t-sql-programming/when-database-source-control-goes-bad/
 
 http://jonathanlewis.wordpress.com/2013/03/01/source-control/
-
 http://martinfowler.com/articles/evodb.html
