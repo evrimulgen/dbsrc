@@ -16,7 +16,7 @@ may be useful to someone somehow...
 
 	GNU Public License details.
 
-## /DESIGN_NOTES.md
+## [DESIGN_NOTES.md] (DESIGN_NOTES.md)
 
 	"under the hood" notes for those who want to understand how it works.
 
