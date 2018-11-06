@@ -1,0 +1,25 @@
+CREATE TABLE "DBSRC_U"."DBSRC"
+   (	"DBSRC_SET_NO" NUMBER,
+	"CFG_NAME" VARCHAR2(80),
+	"ORDER_NO" NUMBER,
+	"OBJECT_OWNER" VARCHAR2(200 CHAR),
+	"DDL_TYPE" VARCHAR2(200 CHAR),
+	"OBJECT_NAME" VARCHAR2(200 CHAR),
+	"DBSRC_TEXT_RAW" CLOB,
+	"DBSRC_TEXT_COOKED" CLOB,
+	"DBSCRIPT_INCLUDE_FLAG" VARCHAR2(1 CHAR) DEFAULT 'Y',
+	"POST_PRCS_ORDER_NO_LIST" VARCHAR2(1000),
+	"DBA_OBJ_CREATED_DATE" DATE,
+	"DBA_OBJ_LAST_DDL_TIME" DATE,
+	"DBA_OBJ_STATUS" VARCHAR2(7),
+	"CREATE_DATE" DATE DEFAULT sysdate,
+	"CREATE_USER" VARCHAR2(80 CHAR) DEFAULT user,
+	"CREATE_PROCESS" VARCHAR2(200 CHAR) DEFAULT sys_context('userenv', 'os_user')||'@'||
+            sys_context('userenv', 'host')||'/'||
+            sys_context('userenv', 'module')||':'||
+            sys_context('userenv', 'action')||'@'||
+            sys_context('userenv', 'db_name')
+   )
+  PARTITION BY RANGE ("DBSRC_SET_NO") INTERVAL (1)
+ (PARTITION "P_FIRST"  VALUES LESS THAN (1000) ) ;
+

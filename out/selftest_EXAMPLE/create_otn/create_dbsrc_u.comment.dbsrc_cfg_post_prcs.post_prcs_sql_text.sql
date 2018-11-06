@@ -1,0 +1,1 @@
+COMMENT ON COLUMN "DBSRC_U"."DBSRC_CFG_POST_PRCS"."POST_PRCS_SQL_TEXT" IS 'Post-processing SQL Text: a sql statement, typically an update to the dbsrc table of a subset of rows within a configuration name.';

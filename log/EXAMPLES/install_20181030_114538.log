@@ -1,0 +1,1499 @@
+SQL> 
+SQL> -- ============================================================================
+SQL> -- install tables and view (everything but package
+SQL> -- ============================================================================
+SQL> @..\sql\01_install.sql
+SQL> 
+SQL> --    Copyright 2019 Steve Rutledge
+SQL> --    =========================================================================
+SQL> --    This file is part of DBSRC Librarian.
+SQL> --
+SQL> --    DBSRC Librarian is free software: you can redistribute it and/or modify
+SQL> --    it under the terms of the GNU General Public License as published by
+SQL> --    the Free Software Foundation, version 3 of the License.
+SQL> --
+SQL> --    DBSRC Librarian is distributed in the hope that it will be useful,
+SQL> --    but WITHOUT ANY WARRANTY; without even the implied warranty of
+SQL> --    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+SQL> --    GNU General Public License for more details.
+SQL> --
+SQL> --    You should have received a copy of the GNU General Public License
+SQL> --    along with DBSRC Librarian (see file COPYING.txt).
+SQL> --    If not, see <https://www.gnu.org/licenses/>.
+SQL> --    =========================================================================
+SQL> 
+SQL> -- ============================================================================
+SQL> -- install the dbsrc tables and view
+SQL> --
+SQL> -- Note, this is a destructive install, that will drop anything pre-existing
+SQL> -- that conflicts with what it installs.
+SQL> -- ============================================================================
+SQL> 
+SQL> drop table dbsrc_cfg_filter;
+drop table dbsrc_cfg_filter
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> drop table dbsrc_cfg_post_prcs;
+drop table dbsrc_cfg_post_prcs
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> drop table dbsrc_cfg_transform;
+drop table dbsrc_cfg_transform
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> drop table dbsrc;
+drop table dbsrc
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> drop table dbsrc_cfg_dbscript;
+drop table dbsrc_cfg_dbscript
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> drop table dbsrc_cfg;
+drop table dbsrc_cfg
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> drop sequence sq_dbsrc_set_no;
+drop sequence sq_dbsrc_set_no
+              *
+ERROR at line 1:
+ORA-02289: sequence does not exist
+
+
+SQL> -- try to preserve all-time count by not dropping
+SQL> --drop sequence sq_dbsrc_cnt_no;
+SQL> 
+SQL> -- =================================================================
+SQL> -- dbsrc_cfg table
+SQL> -- =================================================================
+SQL> 
+SQL> create table dbsrc_cfg (
+  2  	 -- key columns
+  3  	 cfg_name varchar2(80) not null,
+  4  	 --
+  5  	 -- nonkey columns
+  6  	 cfg_desc varchar2(2000) not null,
+  7  	 --
+  8  	 -- standard maintenance columns
+  9  	 create_date date default sysdate,
+ 10  	 create_user varchar2(80 char) default user,
+ 11  	 create_process varchar2(2000 char)
+ 12  	     default sys_context('userenv', 'os_user')||'@'||
+ 13  		 sys_context('userenv', 'host')||'/'||
+ 14  		 sys_context('userenv', 'module')||':'||
+ 15  		 sys_context('userenv', 'action')||'@'||
+ 16  		 sys_context('userenv', 'db_name') not null
+ 17  );
+
+Table created.
+
+SQL> 
+SQL> alter table dbsrc_cfg add constraint pk_dbsrc_cfg
+  2  	 primary key (cfg_name);
+
+Table altered.
+
+SQL> 
+SQL> -- =================================================================
+SQL> -- dbsrc_cfg_post_prcs table
+SQL> -- =================================================================
+SQL> 
+SQL> create table dbsrc_cfg_post_prcs (
+  2  	 -- key columns
+  3  	 cfg_name varchar2(80) not null,
+  4  	 order_no number not null,
+  5  	 --
+  6  	 -- nonkey columns
+  7  	 post_prcs_sql_text clob not null,
+  8  	 comment_text varchar2(2000) not null,
+  9  	 --
+ 10  	 -- standard maintenance columns
+ 11  	 create_date date default sysdate,
+ 12  	 create_user varchar2(80 char) default user,
+ 13  	 create_process varchar2(2000 char)
+ 14  	     default sys_context('userenv', 'os_user')||'@'||
+ 15  		 sys_context('userenv', 'host')||'/'||
+ 16  		 sys_context('userenv', 'module')||':'||
+ 17  		 sys_context('userenv', 'action')||'@'||
+ 18  		 sys_context('userenv', 'db_name') not null
+ 19  );
+
+Table created.
+
+SQL> 
+SQL> -- declared pk as uk as object_type_path may have valid nulls
+SQL> alter table dbsrc_cfg_post_prcs add constraint pk_dbsrc_cfg_post_prcs_01
+  2  	 primary key (cfg_name, order_no);
+
+Table altered.
+
+SQL> alter table dbsrc_cfg_post_prcs add constraint fk_dbsrc_cfg_post_prcs_01
+  2  	  foreign key (cfg_name) references dbsrc_cfg(cfg_name);
+
+Table altered.
+
+SQL> 
+SQL> -- =================================================================
+SQL> -- dbsrc_cfg_filter table
+SQL> -- =================================================================
+SQL> 
+SQL> create table dbsrc_cfg_filter (
+  2  	 -- key columns
+  3  	 cfg_name varchar2(80) not null,
+  4  	 filter_name varchar2(80) not null,
+  5  	 filter_value varchar2(2000) not null,
+  6  	 object_type_path varchar2(80),
+  7  	 --
+  8  	 -- nonkey columns
+  9  	 comment_text varchar2(2000),
+ 10  	 --
+ 11  	 -- standard maintenance columns
+ 12  	 create_date date default sysdate,
+ 13  	 create_user varchar2(80 char) default user,
+ 14  	 create_process varchar2(2000 char)
+ 15  	     default sys_context('userenv', 'os_user')||'@'||
+ 16  		 sys_context('userenv', 'host')||'/'||
+ 17  		 sys_context('userenv', 'module')||':'||
+ 18  		 sys_context('userenv', 'action')||'@'||
+ 19  		 sys_context('userenv', 'db_name') not null
+ 20  );
+
+Table created.
+
+SQL> 
+SQL> -- declared pk as uk as object_type_path may have valid nulls
+SQL> alter table dbsrc_cfg_filter add constraint uk_dbsrc_cfg_filter_01
+  2  	 unique (cfg_name, filter_name, filter_value, object_type_path);
+
+Table altered.
+
+SQL> alter table dbsrc_cfg_filter add constraint fk_dbsrc_cfg_filter_01
+  2  	  foreign key (cfg_name) references dbsrc_cfg(cfg_name);
+
+Table altered.
+
+SQL> 
+SQL> -- =================================================================
+SQL> -- dbsrc_cfg_transform table
+SQL> -- =================================================================
+SQL> 
+SQL> create table dbsrc_cfg_transform (
+  2  	 -- key columns
+  3  	 cfg_name varchar2(80) not null,
+  4  	 transform_name varchar2(80) not null,
+  5  	 transform_value varchar2(2000) not null,
+  6  	 object_type_path varchar2(80),
+  7  	 --
+  8  	 -- nonkey columns
+  9  	 comment_text varchar2(2000),
+ 10  	 --
+ 11  	 -- standard maintenance columns
+ 12  	 create_date date default sysdate,
+ 13  	 create_user varchar2(80 char) default user,
+ 14  	 create_process varchar2(2000 char)
+ 15  	     default sys_context('userenv', 'os_user')||'@'||
+ 16  		 sys_context('userenv', 'host')||'/'||
+ 17  		 sys_context('userenv', 'module')||':'||
+ 18  		 sys_context('userenv', 'action')||'@'||
+ 19  		 sys_context('userenv', 'db_name') not null
+ 20  );
+
+Table created.
+
+SQL> 
+SQL> -- declared pk as uk as object_type_path may have valid nulls
+SQL> alter table dbsrc_cfg_transform add constraint uk_dbsrc_cfg_transform_01
+  2  	 unique (cfg_name, transform_name, transform_value, object_type_path);
+
+Table altered.
+
+SQL> alter table dbsrc_cfg_transform add constraint fk_dbsrc_cfg_transform_01
+  2  	 foreign key (cfg_name) references dbsrc_cfg(cfg_name);
+
+Table altered.
+
+SQL> 
+SQL> -- =================================================================
+SQL> -- dbsrc_cfg_dbscript table
+SQL> -- =================================================================
+SQL> 
+SQL> create table dbsrc_cfg_dbscript (
+  2  	 -- key columns
+  3  	 cfg_name varchar2(80) not null,
+  4  	 ddl_type varchar2(80) not null,
+  5  	 --
+  6  	 -- nonkey columns
+  7  	 order_no number not null,
+  8  	 display_name varchar2(80) not null,
+  9  	 display_note varchar2(1000),
+ 10  	 display_header_text clob,
+ 11  	 comment_text varchar2(2000),
+ 12  	 --
+ 13  	 -- standard maintenance columns
+ 14  	 create_date date default sysdate,
+ 15  	 create_user varchar2(80 char) default user,
+ 16  	 create_process varchar2(2000 char)
+ 17  	     default sys_context('userenv', 'os_user')||'@'||
+ 18  		 sys_context('userenv', 'host')||'/'||
+ 19  		 sys_context('userenv', 'module')||':'||
+ 20  		 sys_context('userenv', 'action')||'@'||
+ 21  		 sys_context('userenv', 'db_name') not null
+ 22  );
+
+Table created.
+
+SQL> 
+SQL> alter table dbsrc_cfg_dbscript add constraint pk_dbsrc_cfg_dbscript
+  2  	 primary key (cfg_name, ddl_type);
+
+Table altered.
+
+SQL> alter table dbsrc_cfg_dbscript add constraint fk_dbsrc_cfg_dbscript_01
+  2  	  foreign key (cfg_name) references dbsrc_cfg(cfg_name);
+
+Table altered.
+
+SQL> 
+SQL> -- =================================================================
+SQL> -- dbsrc table
+SQL> -- =================================================================
+SQL> 
+SQL> create table dbsrc (
+  2  	 -- key columns
+  3  	 dbsrc_set_no number not null,
+  4  	 cfg_name varchar2(80) not null,
+  5  	 order_no number not null,
+  6  	 --
+  7  	 -- nonkey columns
+  8  	 object_owner varchar2(200 char) not null,
+  9  	 -- in some rare cases, dbms_metadata returns nulls for ddl_type
+ 10  	 ddl_type varchar2(200 char) null,
+ 11  	 object_name varchar2(200 char) not null,
+ 12  	 --
+ 13  	 dbsrc_text_raw clob null,
+ 14  	 dbsrc_text_cooked clob null,
+ 15  	 dbscript_include_flag varchar2(1 char)
+ 16  	     default 'Y' not null,
+ 17  	 post_prcs_order_no_list varchar2(1000) null,
+ 18  	 dba_obj_created_date date null,
+ 19  	 dba_obj_last_ddl_time date null,
+ 20  	 dba_obj_status varchar2(7) null,
+ 21  	 --
+ 22  	 -- standard maintenance columns
+ 23  	 create_date date default sysdate not null,
+ 24  	 create_user varchar2(80 char) default user not null,
+ 25  	 create_process varchar2(200 char)
+ 26  	     default sys_context('userenv', 'os_user')||'@'||
+ 27  		 sys_context('userenv', 'host')||'/'||
+ 28  		 sys_context('userenv', 'module')||':'||
+ 29  		 sys_context('userenv', 'action')||'@'||
+ 30  		 sys_context('userenv', 'db_name') not null
+ 31  )
+ 32  -- ddl can be bulky, this will help size+query perf
+ 33  tablespace users
+ 34  lob (dbsrc_text_raw) store as securefile (compress medium),
+ 35  lob (dbsrc_text_cooked) store as securefile (compress medium)
+ 36  --
+ 37  -- this parittioning, along with the local indexes below is
+ 38  -- optimizing for access of a single dbsrc_set_no at a time
+ 39  -- in exchange for slower cross-dbsrc_set performance.
+ 40  partition by range(dbsrc_set_no) interval(1) (
+ 41  	     partition p_first values less than (1000)
+ 42  );
+
+Table created.
+
+SQL> 
+SQL> -- the surrogate key, delared as pk
+SQL> alter table dbsrc add constraint pk_dbsrc primary key
+  2  	 (dbsrc_set_no, cfg_name, order_no);
+
+Table altered.
+
+SQL> alter table dbsrc add constraint fk_dbsrc_01
+  2  	 foreign key (cfg_name, ddl_type)
+  3  	 references dbsrc_cfg_dbscript (cfg_name, ddl_type);
+
+Table altered.
+
+SQL> alter table dbsrc add constraint ck_dbsrc_01 check (
+  2  	 dbscript_include_flag in ('Y', 'N'));
+
+Table altered.
+
+SQL> 
+SQL> create index x_dbsrc_01 on dbsrc (dbscript_include_flag) local;
+
+Index created.
+
+SQL> create index x_dbsrc_02 on dbsrc (cfg_name) local;
+
+Index created.
+
+SQL> create index x_dbsrc_03 on dbsrc (ddl_type, object_name) local;
+
+Index created.
+
+SQL> create index x_dbsrc_04 on dbsrc (order_no) local;
+
+Index created.
+
+SQL> 
+SQL> create sequence sq_dbsrc_cnt_no
+  2  	 start with 1000 increment by 1 noorder cache 30 nocycle;
+
+Sequence created.
+
+SQL> create sequence sq_dbsrc_set_no
+  2  	 start with 1000 increment by 1 noorder cache 30 nocycle;
+
+Sequence created.
+
+SQL> 
+SQL> -- =================================================================
+SQL> -- crnt_dbsrc view
+SQL> -- =================================================================
+SQL> 
+SQL> create or replace force view crnt_dbsrc as
+  2  	 select
+  3  	     -- dbsrc
+  4  	     s.dbsrc_set_no,
+  5  	     s.cfg_name,
+  6  	     s.order_no,
+  7  	     s.object_owner,
+  8  	     s.ddl_type,
+  9  	     s.object_name,
+ 10  	     s.dbsrc_text_raw,
+ 11  	     s.dbsrc_text_cooked,
+ 12  	     s.dbscript_include_flag,
+ 13  	     s.post_prcs_order_no_list,
+ 14  	     s.dba_obj_created_date,
+ 15  	     s.dba_obj_last_ddl_time,
+ 16  	     s.dba_obj_status,
+ 17  	     s.create_date,
+ 18  	     s.create_user,
+ 19  	     s.create_process,
+ 20  	     --
+ 21  	     -- dbsrc_dbscript
+ 22  	     d.order_no dbscript_order_no,
+ 23  	     d.display_name dbscript_dsp_name,
+ 24  	     d.display_header_text dbscript_dsp_header_text
+ 25  	 from dbsrc s
+ 26  	     -- some ddl_types are not in dbsrc_cfg_dbscript, on purpose
+ 27  	     --  (epilogue, prologue)
+ 28  	     left outer join dbsrc_cfg_dbscript d
+ 29  		 on d.ddl_type = s.ddl_type and
+ 30  		     d.cfg_name = s.cfg_name
+ 31  	 where dbsrc_set_no = dbsrc_mgr.get_set_no;
+
+Warning: View created with compilation errors.
+
+SQL> 
+SQL> -- disable fk during active development to allow easy reconfigurations without
+SQL> --  needing to delete existing dbsrc sets
+SQL> alter table dbsrc disable constraint fk_dbsrc_01;
+
+Table altered.
+
+SQL> 
+SQL> 
+SQL> -- ============================================================================
+SQL> -- install package (broken out into independent script because it is useful to
+SQL> -- be able to re-apply this script without reinstalling tables)
+SQL> -- ============================================================================
+SQL> @..\sql\02_install.sql
+SQL> 
+SQL> --    Copyright 2019 Steve Rutledge
+SQL> --    =========================================================================
+SQL> --    This file is part of DBSRC Librarian.
+SQL> --
+SQL> --    DBSRC Librarian is free software: you can redistribute it and/or modify
+SQL> --    it under the terms of the GNU General Public License as published by
+SQL> --    the Free Software Foundation, version 3 of the License.
+SQL> --
+SQL> --    DBSRC Librarian is distributed in the hope that it will be useful,
+SQL> --    but WITHOUT ANY WARRANTY; without even the implied warranty of
+SQL> --    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+SQL> --    GNU General Public License for more details.
+SQL> --
+SQL> --    You should have received a copy of the GNU General Public License
+SQL> --    along with DBSRC Librarian (see file COPYING.txt).
+SQL> --    If not, see <https://www.gnu.org/licenses/>.
+SQL> --    =========================================================================
+SQL> 
+SQL> -- =================================================================
+SQL> -- the dbsrc_mgr package
+SQL> -- =================================================================
+SQL> 
+SQL> -- =================================================================
+SQL> -- PRIVILEGE NOTE:
+SQL> -- This package requires select_catalog_role role (hardcoded req for
+SQL> -- dbms_metadata) for background, see "How To Retrieve The Full Object
+SQL> -- Definition (DDL) From The Database (Doc ID 1460969.1)"
+SQL> -- =================================================================
+SQL> 
+SQL> drop package dbsrc_mgr;
+drop package dbsrc_mgr
+*
+ERROR at line 1:
+ORA-04043: object DBSRC_MGR does not exist
+
+
+SQL> create or replace package dbsrc_mgr authid current_user as
+  2  -- ============================================================================
+  3  --
+  4  --      Public API:
+  5  --      ==========
+  6  --
+  7  	 procedure export_ddl(p_cfg_name in varchar2);
+  8  --      Export the ddl for the given configuration name into the dbsrc table.
+  9  --      This is the "main" procedure: everything else plays a supporting role.
+ 10  -- 		     executes:
+ 11  -- 			     gather_dbsrc_stats()
+ 12  -- 			     get_db_ddl()
+ 13  -- 			     gather_dbsrc_stats()
+ 14  -- 			     post_prcs()
+ 15  -- 			     describe()
+ 16  --
+ 17  	     procedure post_prcs;
+ 18  --      Post-process ddl for the current database source set in the dbsrc table
+ 19  --      to apply formatting, tweaks and fixes.  Called by export_ddl(), but also
+ 20  --      publicly available to re-post-process.
+ 21  -- 	     reads dbsrc table (mostly dbsrc_text_raw column)
+ 22  -- 	     writes dbsrc table (mostly dbsrc_text_cooked column)
+ 23  -- 	     reads sys.dba_objects view
+ 24  -- 	     reads dbsrc_post_prcs
+ 25  --
+ 26  	     procedure describe;
+ 27  --      Describe the configuration, settings and post-processing details of the
+ 28  --      current database source set.  This is a useful readout for mere humans
+ 29  --      trying to understand what is going on.
+ 30  -- 	     executes:
+ 31  -- 		     desc_cfg()
+ 32  -- 		     desc_dbsrc_set()
+ 33  -- 		     desc_post_prcs()
+ 34  -- 	     writes dbms_output
+ 35  --
+ 36  	     procedure desc_dbsrc_set;
+ 37  --      Describe the database source set for the current set_no.  Called by
+ 38  --      export_ddl(), but also publicly available to call independently.
+ 39  -- 	     reads crnt_dbsrc view
+ 40  -- 	     writes dbms_output
+ 41  --
+ 42  	     procedure desc_post_prcs;
+ 43  --      Describe what post processing did to the raw ddl.	Called by export_ddl(),
+ 44  --      but also publicly available to call independently.
+ 45  -- 	     reads crnt_dbsrc view
+ 46  -- 	     reads dbsrc_cfg_post_prcs table
+ 47  -- 	     writes dbms_output
+ 48  --
+ 49  	     procedure set_set_no(n in number default -1);
+ 50  --      Set the current dbsrc_set_no. As most other procedures operate on the
+ 51  --      current dbsrc_set_no, this drives the context for everything.
+ 52  -- 	     executes init()
+ 53  -- 	     sets values of G_SET_NO global variable
+ 54  --
+ 55  	     function get_set_no return number;
+ 56  --      Get the dbsrc_set_no for the current database source configuration.
+ 57  -- 	     returns value of G_SET_NO global variable
+ 58  --
+ 59  	     function get_cfg_name return varchar2;
+ 60  --      Get the "short name" for the current database source configuration.
+ 61  -- 	     returns value of G_CFG_NAME global variable
+ 62  --
+ 63  	     procedure stat;
+ 64  --      Get a summarized status of the contents of the dbsrc table.
+ 65  -- 	     reads user_tab_statistics view
+ 66  -- 	     executes dbms_stats.gather_table_stats()
+ 67  --
+ 68  -- Private API:
+ 69  -- ============
+ 70  --
+ 71  --      procedure p(s in varchar)
+ 72  --      Convenience wrapper for ole dbms_output.put_line.
+ 73  -- 	     executes dbms_output.put_line
+ 74  -- 	     writes dbms_output
+ 75  --
+ 76  --      procedure init()
+ 77  --      Initialize the global variable G_SET_NO to the max currently
+ 78  --  in the dbsrc table. G_SET_NO drives the crnt_dbsrc view,
+ 79  --      which is used by almost everything else.
+ 80  -- 	     reads dbsrc table
+ 81  -- 	     set values of G_SET_NO global variable
+ 82  --
+ 83  --      procedure export_public_db_links()
+ 84  --  A helper for get_db_ddl that cannot conveniently address
+ 85  --  public db_links. Use a very simple approach: always export
+ 86  --  all public links; always make them first in dependency order.
+ 87  -- 	     reads dbsrc_cfg_filter table
+ 88  -- 	     inserts dbsrc table
+ 89  -- 	     executes dbms_metadata.get_ddl()
+ 90  --
+ 91  --      procedure desc_cfg()
+ 92  --      Describe the configuration for the current set_no
+ 93  --      This is a useful readout for mere humans trying to
+ 94  --      understand what is going on.
+ 95  -- 	     reads dbsrc_cfg table
+ 96  -- 	     reads dbsrc_cfg_filter table
+ 97  -- 	     reads dbsrc_cfg_transform table
+ 98  -- 	     executes get_cfg_name()
+ 99  -- 	     writes dbms_output
+100  --
+101  --      procedure set_missing_attrs(
+102  -- 	     p_ddl in clob,
+103  -- 	     p_order_no in number,
+104  -- 	     p_object_owner in out NOCOPY varchar,
+105  -- 	     p_ddl_type in out NOCOPY varchar,
+106  -- 	     p_object_name in out NOCOPY varchar
+107  --      )
+108  --  fill in dbms_metadata blanks
+109  --
+110  --      procedure gather_dbsrc_stats()
+111  --      If dbsrc tables stats are stale or missing, then gather stats.
+112  -- 	     reads user_tab_statistics view
+113  -- 	     executes dbms_stats.gether_tab_stats()
+114  --
+115  --      procedure get_db_ddl()
+116  --  This is where most of the fun happens...  invoke dbms_metadata.get_ddl with
+117  --  all our filters and transforms, for the current database source set.
+118  -- 	     reads dbsrc_cfg_filter table
+119  -- 	     writes dbsrc table
+120  -- 	     executes:
+121  -- 		     export_public_dblinks()
+122  -- 		     dbms_metadata.open()
+123  -- 		     dbms_metadata.set_count()
+124  -- 		     dbms_metadata.set_parse_item()
+125  -- 		     dbms_metadata.get_ddl()
+126  -- 		     dbms_metadata.add_transform()
+127  -- 		     dbms_metadata.set_transform_param()
+128  -- 		     set_missing_attrs()
+129  -- 		     dbms_metadata.close()
+130  -- 		     dbms_session.free_unused_user_memory()
+131  -- 		     dbms_utility.get_time()
+132  --
+133  -- ============================================================================
+134  end dbsrc_mgr;
+135  /
+
+Package created.
+
+SQL> sho err;
+No errors.
+SQL> 
+SQL> alter session set plsql_warnings='enable:all';
+
+Session altered.
+
+SQL> 
+SQL> create or replace package body dbsrc_mgr as
+  2  	 --
+  3  	 -- ============================================================
+  4  	 -- ============================================================
+  5  	 -- PRIVATE
+  6  	 -- ============================================================
+  7  	 -- ============================================================
+  8  	 --
+  9  	     -- commit every x records when inserting ddl into the dbsrc table
+ 10  	 G_COMMIT_INTERVAL number :=  250;
+ 11  	     --
+ 12  	     -- Specify the maximum number of objects to be retrieved in a single
+ 13  	 -- fetch_XXx call. By default, each call tO fetch_xxx returns one
+ 14  	 -- object.  Specifying a count value greater than 1 can result in fewer
+ 15  	 -- server round trips and, therefore, improved performance, (and higher
+ 16  	 -- memory usage).  For heterogeneous object types (that's us), a single
+ 17  	 -- fetch_xxx operation only returns objects of a single object type.
+ 18  	 --
+ 19  	 -- In my experience, set_count 10000 uses >5g of pga with very large
+ 20  	 -- numbers of objects, resulting in ORA-04030: out of process memory
+ 21  	 -- when trying to allocate X bytes.
+ 22  	     -- A value of 25 is about 30% faster than 1 or 100 in my experience.
+ 23  	 G_DDL_FETCH_ARRAYSIZE number := 25;
+ 24  	     --
+ 25  	 -- unique id and cfg_name for the set of ddl we exporting
+ 26  	 G_SET_NO number := -1;
+ 27  	 G_CFG_NAME varchar2(1000);
+ 28  	 -- unique id and order number for each ddl
+ 29  	 G_ORDER_NO number := -1;
+ 30  	 -- stats
+ 31  	 G_START_TIMESTAMP number :=  -1;
+ 32  	 G_ELAPSED number :=  -1;
+ 33  	 G_USAGE_COUNTER number := -1;
+ 34  	 -- the funky datastructure that dbms_metata returns results into
+ 35  	 -- Make global for perf reasons (avoid initializing within function)
+ 36  	 doc sys.ku$_ddls;
+ 37  	 --
+ 38  	 -- ============================================================
+ 39  	 -- p: convenience wrapper for ole dbms_output.put_line
+ 40  	 -- ============================================================
+ 41  	 procedure p(s in varchar) is begin dbms_output.put_line(s); end p;
+ 42  	 --
+ 43  	 -- ============================================================
+ 44  	 -- init: initialize the global variable G_SET_NO to the max
+ 45  	 --  currently in the dbsrc table. G_SET_NO drives the crnt_dbsrc
+ 46  	 --  view, which is used by almost everything else
+ 47  	 -- ============================================================
+ 48  	 procedure init is
+ 49  	 begin
+ 50  	     select nvl(max(dbsrc_set_no), -1) into G_SET_NO from dbsrc;
+ 51  	 end init;
+ 52  	 --
+ 53  	 -- ============================================================
+ 54  	 -- export_public_db_links
+ 55  	 --  a helper for get_db_ddl that cannot conveniently address
+ 56  	 --  public db_links. Use a very simple approach: always export
+ 57  	 --  all public links; always make them first in dependency order.
+ 58  	 --
+ 59  	 -- Execute dynamically to avoid elevated priv requirement:
+ 60  	 --  static: "select any dictionary" privilege required
+ 61  	 --	 -or- a direct grant select on sys.dba_db_links
+ 62  	 --  dynamic: select_catalog_role suffices
+ 63  	 --	 dynamic avoids dba resistance to granting "select any dictionary"
+ 64  	 --	 dynamic adds unnecessary complexity that could easily be avoided
+ 65  	 --	 dynamic hides dependencies
+ 66  	 --	 dynamic delays finding syntax errors from compiletime to runtime
+ 67  	 -- ============================================================
+ 68  	 procedure export_public_db_links is
+ 69  	     x number := -1;
+ 70  	     v_sql varchar2(32767 char) := '';
+ 71  	 begin
+ 72  	     -- honor exclude path expressions
+ 73  	     -- dont export public links if were are excluding db_links
+ 74  	     select count(*) into x
+ 75  	     from dbsrc_cfg_filter
+ 76  	     where
+ 77  		 cfg_name = G_CFG_NAME and
+ 78  		 filter_name = 'EXCLUDE_PATH_EXPR' and
+ 79  		 filter_value like '%DB_LINK%';
+ 80  	     --
+ 81  	     if x = 0 then
+ 82  		 v_sql := '
+ 83  		     insert into dbsrc (
+ 84  			 dbsrc_set_no,
+ 85  			 cfg_name,
+ 86  			 order_no,
+ 87  			 object_owner,
+ 88  			 ddl_type,
+ 89  			 object_name,
+ 90  			 dbsrc_text_raw
+ 91  		     ) (
+ 92  			 select
+ 93  			     :G_SET_NO,
+ 94  			     :G_CFG_NAME,
+ 95  			     rownum,
+ 96  			     ''PUBLIC'',
+ 97  			     ''DB_LINK'',
+ 98  			     db_link,
+ 99  			     dbms_metadata.get_ddl(
+100  			 ''DB_LINK'', db_link, owner)||'';''
+101  			 from sys.dba_db_links
+102  			 where owner = ''PUBLIC''
+103  		     )
+104  		 ';
+105  		 execute immediate v_sql using G_SET_NO, G_CFG_NAME;
+106  		 -- set order_no to where we left off.
+107  		 -- please note that we are assuming that this
+108  		 --  runs before anything else (G_ORDER_NO is not yet set)
+109  		 G_ORDER_NO := sql%rowcount +1;
+110  		 -- increment usage counter for public db links
+111  		 for x in 1..G_ORDER_NO-1 loop
+112  		     select sq_dbsrc_cnt_no.nextval
+113  		     into G_USAGE_COUNTER from dual;
+114  		 end loop;
+115  	     end if;
+116  	 exception
+117  	     when others then
+118  		 p('ERROR export_public_db_links:');
+119  		 p(dbms_utility.format_error_backtrace());
+120  		 p(v_sql);
+121  		 rollback;
+122  		 raise;
+123  	 end export_public_db_links;
+124  	 --
+125  	 -- ============================================================
+126  	 -- desc_cfg: describe the configuration for the current set_no
+127  	 -- This is a useful readout for mere humans trying to
+128  	 -- understand what is going on.
+129  	 -- ============================================================
+130  	 procedure desc_cfg is
+131  	 begin
+132  	     p('-- ========================================================================');
+133  	     p('-- BEGIN Configuration Details');
+134  	     for x in (
+135  		 select '-- '||cfg_name||': '||' '||create_date text
+136  		 from dbsrc_cfg
+137  		 where cfg_name = dbsrc_mgr.get_cfg_name()
+138  	     ) loop p(x.text); end loop;
+139  	     --
+140  	     for x in (
+141  		 select '--    '||cfg_desc text
+142  		 from dbsrc_cfg
+143  		 where cfg_name = dbsrc_mgr.get_cfg_name()
+144  	     ) loop p(x.text); end loop;
+145  	     --
+146  	     for x in (
+147  		 select '--    '||create_process text
+148  		 from dbsrc_cfg
+149  		 where cfg_name = dbsrc_mgr.get_cfg_name()
+150  	     ) loop p(x.text); end loop;
+151  	     --
+152  	     p('--');
+153  	     p('-- dbms_metadata.set_filter() Parameters:');
+154  	     for x in (
+155  		 select
+156  		     '--    '||filter_name||' '||
+157  		     -- some values are mult-line, so preface each line
+158  		     --  with a comment '--'
+159  		     regexp_replace(filter_value, chr(10)||'(.*)', chr(10)||'-- \1')
+160  		     ||','|| object_type_path text
+161  		 from dbsrc_cfg_filter
+162  		 where cfg_name = dbsrc_mgr.get_cfg_name()
+163  		 order by filter_name, filter_value, object_type_path)
+164  		     loop
+165  			     p(x.text);
+166  		     end loop;
+167  	     --
+168  	     p('--');
+169  	     p('-- dbms_metadata.set_transform() Parameters:');
+170  	     for x in (
+171  		 select
+172  		     '--    '||transform_name||','||transform_value||','||object_type_path text
+173  		 from dbsrc_cfg_transform
+174  		 where cfg_name = dbsrc_mgr.get_cfg_name()
+175  		 order by transform_name, transform_value, object_type_path
+176  	     ) loop
+177  			     p(x.text);
+178  		     end loop;
+179  		     --
+180  	     p('-- END Configuration Details');
+181  	     p('-- ========================================================================');
+182  	 end desc_cfg;
+183  	 --
+184  	 -- ============================================================
+185  	 -- set_missing_attrs: fill in dbms_metadata blanks
+186  	 --
+187  	 -- set owner, name, type as dbms_metadata.get_ddl returns nulls
+188  	     -- for some ddl types. The intent is to assign a unique,
+189  	     -- descriptive (owner, type, name) to everything.
+190  	 -- parse out from p_ddl based on double-quote positions
+191  	 -- ============================================================
+192  	 procedure set_missing_attrs (
+193  	     p_ddl in clob,
+194  		     p_order_no in number,
+195  	     p_object_owner in out NOCOPY varchar,
+196  	     p_ddl_type in out NOCOPY varchar,
+197  	     p_object_name in out NOCOPY varchar
+198  	 ) is
+199  	 begin
+200  		     -- make names unique for several object types without useful names
+201  	     if p_ddl_type in (
+202  			     'AUDIT_OBJ', 'OBJECT_GRANT', 'PROACT_INSTANCE',
+203  			     'PROC_SYSTEM_GRANT', 'SYSTEM_GRANT', 'TYPE'
+204  		     ) then
+205  		 p_object_name := nvl(p_object_name,'NO_NAME')||'.'||p_order_no;
+206  		     end if;
+207  		     -- system grants
+208  		     -- separate out from object grants
+209  		     -- 			      1        2   !3
+210  		     -- GRANT CREATE DATABASE LINK TO "SPOTFIRE";
+211  	     if p_ddl_type = 'OBJECT_GRANT' and instr(p_ddl, '"',1,3) = 0 then
+212  		 p_object_owner := substr(p_ddl,
+213  		     instr(p_ddl, '"', 1, 1) +1,
+214  		     instr(p_ddl, '"', 1, 2) - instr(p_ddl, '"', 1, 1) -1);
+215  			     p_ddl_type := 'SYSTEM_GRANT';
+216  		     end if;
+217  	     -- object grants
+218  	     if p_ddl_type = 'OBJECT_GRANT' then
+219  			     -- handle special case: PUBLIC is rendered without double quotes !?!
+220  			     if instr(p_ddl, 'TO PUBLIC') != 0 then
+221  				     -- 		1	 2 3	    4
+222  				     -- GRANT SELECT ON "EDC_CODS"."FORM_REF" TO PUBLIC;
+223  				     p_object_name := substr(p_ddl,
+224  					     instr(p_ddl, '"', 1, 3) +1,
+225  					     instr(p_ddl, '"', 1, 4) - instr(p_ddl, '"', 1, 3) -1)
+226  					     ||'.PUBLIC';
+227  			     else
+228  				     -- 		1	 2 3	    4	 5	  6
+229  				     -- GRANT SELECT ON "EDC_CODS"."FORM_REF" TO "DFACCESS" WITH GRANT OPTION;
+230  				     p_object_name := substr(p_ddl,
+231  					     instr(p_ddl, '"', 1, 3) +1,
+232  					     instr(p_ddl, '"', 1, 4) - instr(p_ddl, '"', 1, 3) -1)
+233  					     ||'.'||
+234  					     substr(p_ddl,
+235  						     instr(p_ddl, '"', 1, 5) +1,
+236  						     instr(p_ddl, '"', 1, 6) - instr(p_ddl, '"', 1, 5) -1)||'.'||
+237  					     substr(p_ddl,
+238  						     instr(p_ddl, ' ', 1, 1) +1,
+239  						     instr(p_ddl, ' ', 1, 2) - instr(p_ddl, ' ', 1, 1) -1);
+240  			     end if;
+241  	     p_object_owner := substr(p_ddl,
+242  		 instr(p_ddl, '"', 1, 1) +1,
+243  		 instr(p_ddl, '"', 1, 2) - instr(p_ddl, '"', 1, 1) -1);
+244  	     end if;
+245  	     -- table and materialized view comments
+246  	     if p_ddl_type = 'COMMENT' and (
+247  				     p_ddl like 'COMMENT ON TABLE %'  or
+248  				     p_ddl like 'COMMENT ON MATERIALIZED VIEW %'
+249  			     ) then
+250  			     -- 			     1	 2 3				 4
+251  			     -- COMMENT ON MATERIALIZED VIEW "SDM"."MV_EASS_USER_GROUP_MEMBERSHIP"  IS '...';
+252  		 p_object_name := substr(p_ddl,
+253  		     instr(p_ddl, '"', 1, 3) +1,
+254  		     instr(p_ddl, '"', 1, 4) - instr(p_ddl, '"', 1, 3) -1);
+255  		 p_object_owner := substr(p_ddl,
+256  		     instr(p_ddl, '"', 1, 1) +1,
+257  		     instr(p_ddl, '"', 1, 2) - instr(p_ddl, '"', 1, 1) -1);
+258  	     end if;
+259  	     -- column comments
+260  	     if p_ddl_type = 'COMMENT' and p_ddl like 'COMMENT ON COLUMN %' then
+261  		 --		      1     2 3     4 5      6
+262  		 -- COMMENT ON COLUMN "owner"."table"."column" IS 'blah...'
+263  		 p_object_name := substr(p_ddl,
+264  			 instr(p_ddl, '"', 1, 3) +1,
+265  			 instr(p_ddl, '"', 1, 4) - instr(p_ddl, '"', 1, 3) -1)
+266  		     ||'.'||
+267  		     substr(p_ddl,
+268  			 instr(p_ddl, '"', 1, 5) +1,
+269  			 instr(p_ddl, '"', 1, 6) - instr(p_ddl, '"', 1, 5) -1);
+270  		 p_object_owner := substr(p_ddl,
+271  		     instr(p_ddl, '"', 1, 1) +1,
+272  		     instr(p_ddl, '"', 1, 2) - instr(p_ddl, '"', 1, 1) -1);
+273  	     end if;
+274  	     -- constraints
+275  	     if p_ddl_type = 'CONSTRAINT' then
+276  		 p_object_owner := substr(p_ddl,
+277  		     instr(p_ddl, '"', 1, 1) +1,
+278  		     instr(p_ddl, '"', 1, 2) - instr(p_ddl, '"', 1, 1) -1);
+279  	     end if;
+280  	     -- contexts
+281  	     if p_ddl_type = 'CONTEXT' then
+282  		 --			      1 	2	3     4 5   6
+283  		 -- CREATE OR REPLACE CONTEXT "namespace" USING "owner"."pgm"
+284  		 -- namespace.pgm
+285  		 p_object_name := substr(p_ddl,
+286  			 instr(p_ddl, '"', 1, 1) +1,
+287  			 instr(p_ddl, '"', 1, 2) - instr(p_ddl, '"', 1, 1) -1);
+288  		 p_object_owner := substr(p_ddl,
+289  		     instr(p_ddl, '"', 1, 3) +1,
+290  		     instr(p_ddl, '"', 1, 4) - instr(p_ddl, '"', 1, 3) -1);
+291  	     end if;
+292  	     -- default roles
+293  	     if p_ddl_type = 'DEFAULT_ROLE' then
+294  		 p_object_owner := substr(p_ddl,
+295  		     instr(p_ddl, '"', 1, 1) +1,
+296  		     instr(p_ddl, '"', 1, 2) - instr(p_ddl, '"', 1, 1) -1);
+297  	     end if;
+298  	     -- users
+299  	     if p_ddl_type = 'USER' then
+300  		 p_object_owner := substr(p_ddl,
+301  		     instr(p_ddl, '"', 1, 1) +1,
+302  		     instr(p_ddl, '"', 1, 2) - instr(p_ddl, '"', 1, 1) -1);
+303  	     end if;
+304  	     -- object grants
+305  	     -- 			      1    2
+306  	     -- GRANT CREATE DATABASE LINK TO "user";
+307  	     if p_ddl_type = 'OBJECT_GRANT' then
+308  		 p_object_owner := substr(p_ddl,
+309  		     instr(p_ddl, '"', 1, 1) +1,
+310  		     instr(p_ddl, '"', 1, 2) - instr(p_ddl, '"', 1, 1) -1);
+311  	     end if;
+312  	     -- role grants
+313  	     --       1    2	3    4
+314  	     -- GRANT "role" TO "user";
+315  	     if p_ddl_type = 'ROLE_GRANT' then
+316  		 p_object_owner := substr(p_ddl,
+317  		     instr(p_ddl, '"', 1, 3) +1,
+318  		     instr(p_ddl, '"', 1, 4) - instr(p_ddl, '"', 1, 3) -1);
+319  		 p_object_name := substr(p_ddl,
+320  		     instr(p_ddl, '"', 1, 1) +1,
+321  		     instr(p_ddl, '"', 1, 2) - instr(p_ddl, '"', 1, 1) -1);
+322  	     end if;
+323  		     -- rls_policy
+324  		 if p_ddl_type = 'RLS_POLICY' then
+325  			     --      BEGIN DBMS_RLS.ADD_GROUPED_POLICY(
+326  			     --       1     2	3      4   5	       6   7	  8
+327  			     -- 	     '"owner"','"object"','"SYS_DEFAULT"','"policy"',
+328  			     -- 	     '"function_owner"','"function"',
+329  			     -- 	     'DELETE,UPDATE,INSERT',TRUE,TRUE,FALSE,dbms_rls.DYNAMIC,FALSE,'',NULL);
+330  			     --      END;
+331  		 p_object_name := substr(p_ddl,
+332  			 instr(p_ddl, '"', 1, 3) +1,
+333  			 instr(p_ddl, '"', 1, 4) - instr(p_ddl, '"', 1, 3) -1)
+334  		     ||'.'||
+335  		     substr(p_ddl,
+336  			 instr(p_ddl, '"', 1, 7) +1,
+337  			 instr(p_ddl, '"', 1, 8) - instr(p_ddl, '"', 1, 7) -1);
+338  		 p_object_owner := substr(p_ddl,
+339  		     instr(p_ddl, '"', 1, 1) +1,
+340  		     instr(p_ddl, '"', 1, 2) - instr(p_ddl, '"', 1, 1) -1);
+341  	     end if;
+342  		 -- table refs
+343  	     if p_ddl_type = 'TABLE' and p_ddl like '%ALTER TABLE % ADD REF %'	then
+344  		 p_ddl_type := 'TABLE_REF';
+345  			     -- I don't know how to unique name this! append order_no for now....
+346  			     p_object_name := p_object_name||'.'||p_order_no;
+347  	     end if;
+348  		     -- trigger alters
+349  		     if p_ddl_type = 'TRIGGER' and p_ddl like '%ALTER TRIGGER %'  then
+350  		 p_ddl_type := 'TRIGGER_ALTER';
+351  	     end if;
+352  
+353  	 end set_missing_attrs;
+354  	     --
+355  	 -- ============================================================
+356  	     -- gather_dbsrc_stats
+357  	     --      If dbsrc tables stats are stale or missing, then gather
+358  	     --      stats.
+359  	 -- ============================================================
+360  	 procedure gather_dbsrc_stats is
+361  	     begin
+362  		     for x in (
+363  			     select table_name
+364  			     from user_tab_statistics
+365  			     where
+366  				     -- YES = stale stats , NULL = no stats
+367  				     (stale_stats is null or stale_stats = 'YES') and
+368  				     (table_name = 'DBSRC' or table_name like 'DBSRC\_%' escape '\')
+369  		     ) loop
+370  			     p('-- '||x.table_name||' table stats are stale or missing. Gathering stats...');
+371  			     dbms_stats.gather_table_stats(user, x.table_name);
+372  		     end loop;
+373  	     end gather_dbsrc_stats;
+374  	     --
+375  	     -- ============================================================
+376  	 -- get_db_ddl
+377  	 --  this is where most of the fun happens...
+378  	 --  invoke dbms_metadata.get_ddl get_db_ddl
+379  	 --  with all our filters and transforms,
+380  	     --  for the current database source set.
+381  	 --
+382  	 -- Note this procedure is an autonomous transaction. It will not
+383  	 -- trigger a commit in the calling block.
+384  	 -- ============================================================
+385  	 procedure get_db_ddl is pragma autonomous_transaction;
+386  	     no_objects_exported exception;
+387  	     pragma exception_init(no_objects_exported, -31605);
+388  	     -- handle to a dbms_metadata "session"
+389  	     h number := -1;
+390  	     -- handle to a dbms_metadata "transform"
+391  	     th number := -1;
+392  	     -- loop iterators
+393  	     i number := null;
+394  	     j number := null;
+395  	     -- buffer for current ddl
+396  	     ddl clob := null;
+397  	     -- buffer for items we parse out of sys.ku$_ddls
+398  	     pi sys.ku$_parsed_items;
+399  	     -- attributes we parse out for each object
+400  	     l_object_owner varchar2(2000 char);
+401  	     l_ddl_type varchar2(2000 char);
+402  	     l_object_name varchar2(2000 char);
+403  	     -- counter buffer
+404  	     n number := -1;
+405  	 begin
+406  	     G_START_TIMESTAMP := dbms_utility.get_time;
+407  	     p('-- ========================================================================');
+408  	     p('-- BEGIN export_ddl '||to_char(sysdate, 'MON-DD-YYYY HH24:MI:SS'));
+409  	     --
+410  	     -- get public database links first
+411  	     export_public_db_links;
+412  	     --
+413  	     -- now for the rest of the ddl...
+414  	     h := dbms_metadata.open('DATABASE_EXPORT');
+415  	     --
+416  	     dbms_metadata.set_count(h, G_DDL_FETCH_ARRAYSIZE);
+417  	     --
+418  	     -- apply the filters for this given cfg_name
+419  	     for psf in (
+420  		 select filter_name, filter_value, object_type_path
+421  		 from dbsrc_cfg_filter
+422  		 where cfg_name = G_CFG_NAME
+423  		 order by filter_name, filter_value, object_type_path
+424  	     ) loop
+425  		 dbms_metadata.set_filter(
+426  		     h, psf.filter_name, psf.filter_value, psf.object_type_path);
+427  	     end loop;
+428  	     --
+429  	     -- parse out object_type and name to store with ddl
+430  	     dbms_metadata.set_parse_item(h,'SCHEMA');
+431  	     dbms_metadata.set_parse_item(h,'OBJECT_TYPE');
+432  	     dbms_metadata.set_parse_item(h,'NAME');
+433  	     --
+434  	     -- we want ddl!
+435  	     th := dbms_metadata.add_transform(h,'DDL');
+436  	     --
+437  	     -- apply the transforms for this given cfg_name
+438  	     for pst in (
+439  		 select transform_name, transform_value, object_type_path
+440  		 from dbsrc_cfg_transform
+441  		 where cfg_name = G_CFG_NAME
+442  		 order by transform_name, transform_value, object_type_path
+443  	     ) loop
+444  		 dbms_metadata.set_transform_param(
+445  		     th,
+446  		     pst.transform_name,
+447  		     case upper(pst.transform_value) when 'TRUE' then true else false end,
+448  		     pst.object_type_path);
+449  	     end loop;
+450  	     --
+451  	     loop
+452  		 doc := dbms_metadata.fetch_ddl(h);
+453  		 exit when doc is null;
+454  		 i := doc.first;
+455  		 while i is not null loop
+456  		     if not doc.exists(i) then continue; end if;
+457  		     ddl := trim(doc(i).ddltext);
+458  		     pi := doc(i).parseditems;
+459  		     if pi is not null and pi.count > 0 then
+460  			 j := pi.first;
+461  			 --
+462  			 -- clear previous and parse out new
+463  			 l_object_owner := null;
+464  			 l_ddl_type := null;
+465  			 l_object_name := null;
+466  			 while j is not null loop
+467  			     if pi(j).item='SCHEMA' then
+468  				 l_object_owner := pi(j).value;
+469  			     elsif pi(j).item='OBJECT_TYPE' then
+470  				 l_ddl_type := pi(j).value;
+471  			     elsif pi(j).item='NAME' then
+472  				 l_object_name := pi(j).value;
+473  			     end if;
+474  			     j := pi.next(j);
+475  			 end loop; -- inner-inner "j" loop
+476  		     end if;
+477  		     -- insert results for current object
+478  		     --
+479  		     -- increment usage counter
+480  		     select sq_dbsrc_cnt_no.nextval
+481  		     into G_USAGE_COUNTER from dual;
+482  		     --
+483  		     -- fill in dbms_metadata blanks:
+484  		     --  when object_owner and/or object_name is blank,
+485  		     --  set them to something useful
+486  		     set_missing_attrs(
+487  			 ddl, G_ORDER_NO, l_object_owner, l_ddl_type, l_object_name);
+488  		     --
+489  		     insert into dbsrc (
+490  			 dbsrc_set_no,
+491  			 cfg_name,
+492  			 order_no,
+493  			 object_owner,
+494  			 ddl_type,
+495  			 object_name,
+496  			 dbsrc_text_raw,
+497  			 dbsrc_text_cooked
+498  		     ) values (
+499  			 G_SET_NO,
+500  			 G_CFG_NAME,
+501  			 G_ORDER_NO,
+502  			 nvl(l_object_owner, 'NO_OWNER'),
+503  			 l_ddl_type,
+504  			 nvl(l_object_name, 'NO_NAME'),
+505  			 ddl,
+506  			 ddl
+507  		     );
+508  		     -- point to next record, which is
+509  		     --  sparse, so using next()
+510  		     G_ORDER_NO := G_ORDER_NO +1;
+511  		     i := doc.next(i);
+512  		     --
+513  		     -- commit on interval
+514  		     if mod(G_ORDER_NO, G_COMMIT_INTERVAL) = 0 then
+515  			 commit;
+516  		     end if;
+517  		 end loop; -- inner "i" loop
+518  	     end loop; -- outer loop
+519  	     dbms_metadata.close(h);
+520  	     --
+521  	     -- possibly useful, but probably not
+522  	     dbms_session.free_unused_user_memory;
+523  	     --
+524  	     G_ELAPSED := (dbms_utility.get_time - G_START_TIMESTAMP) / 100;
+525  	     p('-- export_ddl elapsed seconds: '||G_ELAPSED);
+526  	     select count(*) into n from dbsrc where dbsrc_set_no = G_SET_NO;
+527  	     p('-- export_ddl object count: '||n);
+528  	     if n = 0 then raise no_objects_exported; end if;
+529  	     p('-- export_ddl rate in objects/s: '||round(n/G_ELAPSED, 2));
+530  	     p('-- export_ddl all-time objects exported: '||G_USAGE_COUNTER);
+531  	     p('-- END export_ddl '||to_char(sysdate, 'MON-DD-YYYY HH24:MI:SS'));
+532  	     p('-- ========================================================================');
+533  	     --
+534  	     -- a final commit
+535  	     commit;
+536  	 --
+537  	 exception
+538  	     when no_objects_exported then
+539  		 p('WARN export_ddl(): no objects found to export. Stopping here.');
+540  			     rollback;
+541  			     raise;
+542  	     when others then
+543  		 p('get_db_ddl:');
+544  		 p(dbms_utility.format_error_backtrace());
+545  		 raise;
+546  	 end get_db_ddl;
+547  	 --
+548  	 --
+549  	 --
+550  	 -- ============================================================
+551  	 -- ============================================================
+552  	 -- ============================================================
+553  	 -- PUBLIC
+554  	 -- ============================================================
+555  	 -- ============================================================
+556  	 -- ============================================================
+557  	     --
+558  	 -- ============================================================
+559  	 -- post_prcs
+560  	 --  * process dbsrc_text_raw into dbsrc_text_cooked ddl
+561  	 --  * enrich dbsrc with additional useful info
+562  	 --	 dba_objects.created_date
+563  	 --	 dba_objects.last_ddl_time
+564  	 --	 dba_objects.status
+565  	 -- * apply complex post-processing that cannot be addressed via
+566  	 --  simple dbms_metadata include and exclude expressions.
+567  	 --
+568  	 -- Execute dynamically to avoid elevated priv requirement:
+569  	 --  static: "select any dictionary" privilege required
+570  	 --	 -or- a direct grant select on sys.dba_objects
+571  	 --  dynamic: select_catalog_role suffices
+572  	 --	 dynamic avoids dba resistance to granting select_catalog_role
+573  	 --	 dynamic adds unnecessary complexity that could easily be avoided
+574  	 --	 dynamic hides dependencies
+575  	 --	 dynamic delays finding syntax errors from compiletime to runtime
+576  	 --  sad but true :)
+577  	     --
+578  	 -- Note this procedure is an autonomous transaction. It will not
+579  	 -- trigger a commit in the calling block.
+580  	 -- ============================================================
+581  	 procedure post_prcs is pragma autonomous_transaction;
+582  	     v_sql varchar2(32767 char) := '';
+583  		     -- counter
+584  		     c number := 0;
+585  	 begin
+586  	     G_START_TIMESTAMP := dbms_utility.get_time;
+587  	     p('-- ========================================================================');
+588  	     p('-- BEGIN Post-processing '||to_char(sysdate, 'MON-DD-YYYY HH24:MI:SS'));
+589  	     -- enrich dbsrc with additional useful info
+590  	     --  some dbsrc "dups" exist for a valid reason,
+591  	     --      hence the distinct
+592  	     v_sql := '
+593  		 merge into dbsrc dst
+594  		 using (
+595  		     select distinct
+596  			 do.owner object_owner,
+597  			 do.object_type ddl_type,
+598  			 do.object_name,
+599  			 ds.dbsrc_set_no,
+600  			 do.created dba_obj_created_date,
+601  			 do.last_ddl_time dba_obj_last_ddl_time,
+602  			 do.status dba_obj_status
+603  		     from
+604  			 sys.dba_objects do
+605  			 inner join dbsrc ds
+606  			     on ds.object_owner = do.owner and
+607  				 ds.ddl_type = do.object_type and
+608  				 ds.object_name = do.object_name
+609  		     where
+610  			 ds.dbsrc_set_no = :G_SET_NO and
+611  			 ds.object_owner != ''NO_OWNER'' and
+612  			 ds.object_name != ''NO_NAME''
+613  		 ) src
+614  		 on (
+615  		     dst.object_owner = src.object_owner and
+616  		     dst.ddl_type = src.ddl_type and
+617  		     dst.object_name = src.object_name and
+618  		     dst.dbsrc_set_no = src.dbsrc_set_no
+619  		 )
+620  		 when matched then update set
+621  		     dst.dba_obj_created_date = src.dba_obj_created_date,
+622  		     dst.dba_obj_last_ddl_time = src.dba_obj_last_ddl_time,
+623  		     dst.dba_obj_status = src.dba_obj_status
+624  	     ';
+625  	     execute immediate v_sql using G_SET_NO;
+626  	     commit;
+627  	     --
+628  	     -- step through each post-processing step for this cfg_name
+629  	     --  in order by order_no and apply post-processing.
+630  	     -- commit is more to enable easy snooping on intermediate progress
+631  	     --  than for performance or efficiency
+632  	     for x in (
+633  		 select
+634  		     pp.order_no,
+635  		     pp.post_prcs_sql_text,
+636  		     pp.comment_text
+637  		 from
+638  		     dbsrc_cfg_post_prcs pp
+639  		 where exists (
+640  		     select 1
+641  		     from dbsrc d
+642  		     where
+643  			 d.dbsrc_set_no = G_SET_NO and
+644  			 -- correlate
+645  			 d.cfg_name = pp.cfg_name
+646  		 )
+647  		 order by pp.order_no
+648  	     ) loop
+649  			     c := c+1;
+650  		 v_sql := x.post_prcs_sql_text;
+651  		 execute immediate (v_sql);
+652  		 commit;
+653  	     end loop;
+654  		     if c = 0 then
+655  			     p('>>> WARNING: there are no rows in dbsrc_cfg_post_prcs for set_no='||G_SET_NO);
+656  		     end if;
+657  	     --
+658  	     G_ELAPSED := (dbms_utility.get_time - G_START_TIMESTAMP) / 100;
+659  	     p('-- Post-processing Elapsed seconds: '||G_ELAPSED);
+660  	     p('-- END Post-processing '||to_char(sysdate, 'MON-DD-YYYY HH24:MI:SS'));
+661  	     p('-- ========================================================================');
+662  	 exception
+663  	     when others then
+664  		 p('ERROR post_prcs():');
+665  		 p(v_sql);
+666  		 p(dbms_utility.format_error_backtrace());
+667  		 rollback;
+668  		 raise;
+669  	 end post_prcs;
+670  	     --
+671  	     -- ============================================================
+672  	 -- desc_dbsrc_set: describe the dbsrc set for the current set_no
+673  	 -- This is a useful readout for mere humans trying to
+674  	 -- understand what is going on.
+675  	 -- ============================================================
+676  	 procedure desc_dbsrc_set is
+677  	 begin
+678  	     p('-- ========================================================================');
+679  	     p('-- BEGIN Database Source Details');
+680  	     for x in (
+681  		 select '-- dbsrc_set_no='||dbsrc_set_no||' cfg_name='||cfg_name||
+682  		     ' create_date='|| max(create_date) text
+683  		 from crnt_dbsrc
+684  		 group by dbsrc_set_no, cfg_name
+685  	     ) loop p(x.text); end loop;
+686  	     --
+687  	     for x in (
+688  		 select distinct '-- create_process='||create_process text
+689  		 from crnt_dbsrc
+690  	     ) loop p(x.text); end loop;
+691  	     --
+692  	     for x in (
+693  		 select '-- TOTAL: '||count(*) text
+694  		 from crnt_dbsrc
+695  		 where dbscript_include_flag = 'Y'
+696  	     ) loop p(x.text); end loop;
+697  	     --
+698  	     for x in (
+699  		 select '--   '||ddl_type||': '||count(ddl_type) text
+700  		 from crnt_dbsrc
+701  		 where dbscript_include_flag = 'Y'
+702  		 group by ddl_type
+703  		 order by ddl_type
+704  	     ) loop p(x.text); end loop;
+705  	     p('-- END Database Source Details');
+706  	     p('-- ========================================================================');
+707  	 end desc_dbsrc_set;
+708  	 --
+709  	 -- ============================================================
+710  	 -- desc_post_prcs: describe the post-processing for the current set_no
+711  	 -- This is a useful readout for mere humans trying to
+712  	 -- understand what is going on.
+713  	 -- ============================================================
+714  	 procedure desc_post_prcs is
+715  	     n number := -1;
+716  	     -- convenience wrapper for ole dbms_output.put_line
+717  	     procedure p(s varchar) is begin dbms_output.put_line(s); end p;
+718  	 begin
+719  	     p('-- ========================================================================');
+720  	     p('-- BEGIN Post-Processing Details');
+721  	     -- print grand total of rows excluded because of post-processing
+722  	     select count(*) into n from crnt_dbsrc
+723  	     where dbscript_include_flag = 'N';
+724  	     p('-- Total object(s) excluded due to post-processing: '||n);
+725  	     --
+726  	     -- print grand total of rows affected in any way because of
+727  	     --  post-processing
+728  	     select count(*) into n from crnt_dbsrc
+729  	     where post_prcs_order_no_list is not null;
+730  	     p('-- Total object(s) affected in any way due to post-processing: '||n);
+731  		     --
+732  	     -- describe post-processing, one step at a time
+733  	     -- step through each post-processing step for this cfg_name
+734  	     --  in order by order_no
+735  	     for x in (
+736  		 select
+737  		     count(*) cnt,
+738  		     p.order_no,
+739  		     p.comment_text
+740  		 from
+741  		     crnt_dbsrc s
+742  		     inner join dbsrc_cfg_post_prcs p
+743  			 on instr(s.post_prcs_order_no_list,
+744  				 ':'||to_char(p.order_no)||':') > 0 and
+745  			     s.cfg_name = p.cfg_name
+746  		 group by
+747  		     p.order_no,
+748  		     p.comment_text
+749  		 order by p.order_no
+750  	     ) loop
+751  		 p('-- ('||x.order_no||') '||
+752  		     regexp_replace(x.comment_text, chr(10), chr(10)||'--      '));
+753  		 p('--	 Post-processing '||x.cnt||' object(s) affected.');
+754  	     end loop;
+755  	     --
+756  	     p('-- END Post-Processing Details');
+757  	     p('-- ========================================================================');
+758  	 end desc_post_prcs;
+759  	 --
+760  	 -- ============================================================
+761  	 -- set_set_no: set the global variable G_SET_NO
+762  	 --  default to last set_no
+763  	 -- ============================================================
+764  	 procedure set_set_no(n in number default -1) is
+765  	 begin if n = -1 then init(); else G_SET_NO := n; end if;
+766  	 end set_set_no;
+767  	 --
+768  	 -- ============================================================
+769  	 -- get_set_no: get the global variable G_SET_NO
+770  	 --  init() if not set yet
+771  	 -- ============================================================
+772  	 function get_set_no return number is
+773  	 begin if G_SET_NO = -1 then init(); end if;
+774  	     return G_SET_NO;
+775  	 end get_set_no;
+776  	 --
+777  	 -- ============================================================
+778  	 -- get_cfg_name: get the global variable cfg_name for the
+779  	 --  current set_no
+780  	 -- ============================================================
+781  	 function get_cfg_name return varchar2 is
+782  	 begin
+783  	     select distinct cfg_name into G_CFG_NAME from crnt_dbsrc;
+784  	     return G_CFG_NAME;
+785  	 end get_cfg_name;
+786  	 --
+787  	 -- ============================================================
+788  	 -- describe: convenient public interface and wrapper to all
+789  	 --	 the desc* procedures
+790  	 -- ============================================================
+791  	 procedure describe is
+792  	 begin
+793  	     desc_cfg;
+794  	     desc_dbsrc_set;
+795  	     desc_post_prcs;
+796  	 end describe;
+797  	 --
+798  	 -- ============================================================
+799  	 -- stat: show status summary of dbsrc table contents
+800  	 -- ============================================================
+801  	 procedure stat is
+802  	 begin
+803  	     p('				  Post				    ');
+804  	     p(' Set		       Object  Process	Elapsed 		    ');
+805  	     p('  No	 Config Name   Count	 Count	Seconds Create Date	    ');
+806  	     p('==== =============== ======== ======== ======== ====================');
+807  	     for x in (
+808  		 select
+809  		     dbsrc_set_no,
+810  		     rtrim(lpad(cfg_name, 15), 20) cfg_name,
+811  		     to_char(count(*), '999,999') cnt,
+812  		     to_char(count(post_prcs_order_no_list), '999,999') pp_cnt,
+813  		     to_char(
+814  			 round(((max(create_date) -
+815  			     min(create_date)) *24*60*60), 0)
+816  		     , '999,999') ss,
+817  		     max(to_char(create_date, 'MON-DD-YYYY HH24:MI:SS')) create_date
+818  		 from dbsrc
+819  		 group by
+820  		     dbsrc_set_no,
+821  		     cfg_name
+822  		 order by dbsrc_set_no
+823  	     ) loop
+824  		 p(x.dbsrc_set_no||' '||x.cfg_name||' '||x.cnt||' '||x.pp_cnt||' '||
+825  		     x.ss||' '||x.create_date);
+826  	     end loop;
+827  	     --
+828  	     -- this seems to be the cleanest approach:
+829  	     --  avoid requiring the sq.curval to be initialized
+830  	     for x in (
+831  		 select last_number n from user_sequences
+832  		 where sequence_name = 'SQ_DBSRC_CNT_NO'
+833  	     ) loop
+834  		 p('export_ddl all-time objects exported: '||x.n);
+835  	     end loop;
+836  	 end stat;
+837  	 --
+838  	     -- ============================================================
+839  	     -- export_ddl
+840  	     --  for the current set_no:
+841  	     --  * export the ddl for a dbsrc configuration into the dbsrc table
+842  	     --  * apply post-processing
+843  	     --  * describe results
+844  	     -- ============================================================
+845  	     procedure export_ddl(p_cfg_name in varchar2) is
+846  		     l_cfg_cnt number := -1;
+847  	     begin
+848  		     -- test and set G_CFG_NAME
+849  		     select count(*) cnt
+850  		     into l_cfg_cnt
+851  		     from dbsrc_cfg c
+852  			     inner join dbsrc_cfg_dbscript g
+853  				     on g.cfg_name = c.cfg_name
+854  			     -- post-processing is optional and does not have to exist for a
+855  			     --  dbsrc_set
+856  			     --inner join dbsrc_cfg_post_prcs p
+857  			     --    on p.cfg_name = c.cfg_name
+858  			     inner join dbsrc_cfg_filter f
+859  				     on f.cfg_name = c.cfg_name
+860  			     inner join dbsrc_cfg_transform t
+861  				     on t.cfg_name = c.cfg_name
+862  			     where c.cfg_name = p_cfg_name;
+863  		     if l_cfg_cnt < 1 then
+864  			     p('WARN: export_ddl(): Some or all of the dbsrc_cfg is missing');
+865  		     end if;
+866  		     G_CFG_NAME := p_cfg_name;
+867  		     --
+868  		     -- assign new dbsrc_set_no
+869  		     G_SET_NO := sq_dbsrc_set_no.nextval;
+870  		     dbsrc_mgr.set_set_no(G_SET_NO);
+871  		     --
+872  		     -- export and post-process
+873  		     gather_dbsrc_stats;
+874  		     get_db_ddl;
+875  		     gather_dbsrc_stats;
+876  		     post_prcs;
+877  		     describe;
+878  	     --
+879  	     exception
+880  		     when others then
+881  			     p('ERROR export_ddl:');
+882  			     p(dbms_utility.format_error_backtrace());
+883  			     raise;
+884  	     end export_ddl;
+885  end dbsrc_mgr;
+886  /
+
+Package body created.
+
+SQL> show errors;
+No errors.
+SQL> 
+SQL> 
+SQL> spool off;

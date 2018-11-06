@@ -1,0 +1,11 @@
+COMMENT ON TABLE "DBSNMP"."BSLN_METRIC_DEFAULTS"  IS 'Default Attributes of Baselineable Metrics';
+COMMENT ON TABLE "DBSNMP"."BSLN_TIMEGROUPS"  IS 'Weekday/Weeknight and Day/Night Timegroup Definitions';
+COMMENT ON TABLE "DBSNMP"."BSLN_BASELINES"  IS 'Baselines Designated for Metric Statistics Calculation';
+COMMENT ON TABLE "DBSNMP"."BSLN_STATISTICS"  IS 'Metric Statistics for Baselines';
+COMMENT ON TABLE "DBSNMP"."BSLN_THRESHOLD_PARAMS"  IS 'Baseline Metric Threshold Parameters';
+COMMENT ON TABLE "DBSNMP"."MGMT_BSLN_METRICS"  IS 'Metrics Eligible for Baselines (10.2)';
+COMMENT ON TABLE "DBSNMP"."MGMT_BSLN_DATASOURCES"  IS 'Registered Metric Baseline Datasources (10.2)';
+COMMENT ON TABLE "DBSNMP"."MGMT_BSLN_BASELINES"  IS 'Database Metric Baselines (10.2)';
+COMMENT ON TABLE "DBSNMP"."MGMT_BSLN_INTERVALS"  IS 'Database Metric Baseline Intervals (10.2)';
+COMMENT ON TABLE "DBSNMP"."MGMT_BSLN_THRESHOLD_PARMS"  IS 'Database Metric Baseline Thresholds (10.2)';
+COMMENT ON TABLE "DBSNMP"."MGMT_BSLN_STATISTICS"  IS 'Database Metric Baseline Statistics (10.2)';

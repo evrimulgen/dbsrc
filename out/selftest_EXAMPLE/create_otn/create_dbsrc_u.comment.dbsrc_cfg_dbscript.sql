@@ -1,0 +1,1 @@
+COMMENT ON TABLE "DBSRC_U"."DBSRC_CFG_DBSCRIPT"  IS 'Database Source Configuration Database Script. This is a template for creating a database script from the database source code found in the dbsrc table.';

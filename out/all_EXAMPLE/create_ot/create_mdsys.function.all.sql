@@ -1,0 +1,2742 @@
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."ELOCATION_EDGE_LINK_LEVEL" (func_class in number)
+  RETURN NUMBER  DETERMINISTIC
+IS
+BEGIN
+   RETURN floor((8-FUNC_CLASS)/3);
+END;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."GETMDSYSEVENT" wrapped
+a000000
+1
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+8
+be df
+kP9o5ktZNqgbOQm5eFhNKg/be5owgy5KLZ7hf3RAkBAYuLcV7TdeZOoqUOjxDMyw0W9JTOLn
+vO0+QXDoXZmaT4q2k69auBYqaIv+iodDk7GmihR/+2N8Vzlujr5tVxuGDWy2dvX+CU6Mob4h
+CusCxjeyD6ibBNRu2xdsLiKMdq9g0y6zCJFU7yEgg1ZL6pLq2RAa8zv3hXPQom2asGGYPVvT
+u4KE
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."GET_TOPO_GEOMETRY_LAYER_ARRAY" (
+   Topo_Geometry_Layers IN SDO_Topo_Geometry_Layer_Table) return
+  SDO_Topo_Geometry_Layer_Array DETERMINISTIC IS
+tp_array SDO_Topo_Geometry_Layer_Array;
+layer SDO_TOPO_GEOMETRY_LAYER;
+layer_arr SDO_Topo_Geometry_Layer_Array;
+idx number;
+begin
+  layer := Topo_Geometry_Layers(1);
+  if (layer.owner IS NULL) then
+    return SDO_Topo_Geometry_Layer_Array(NULL);
+  else
+   layer_arr := SDO_Topo_Geometry_Layer_Array();
+   for idx in 1 .. Topo_Geometry_Layers.count loop
+    layer_arr.extend;
+    layer_arr(idx) := Topo_Geometry_Layers(idx);
+   end loop;
+   return layer_arr;
+  end if;
+
+end;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."GET_TOPO_GEOMETRY_LAYER_TABLE" (
+   Topo_Geometry_Layers IN SDO_Topo_Geometry_Layer_Array) return
+  SDO_Topo_Geometry_Layer_Table DETERMINISTIC IS
+tp_table SDO_Topo_Geometry_Layer_Table;
+layer SDO_TOPO_GEOMETRY_LAYER;
+layer_tab SDO_Topo_Geometry_Layer_Table;
+idx number;
+begin
+  layer := Topo_Geometry_Layers(1);
+  if (layer IS NULL) then
+    return SDO_Topo_Geometry_Layer_Table(SDO_TOPO_GEOMETRY_LAYER(NULL,NULL,NULL,NULL,NULL,NULL,NULL));
+  else
+   layer_tab := SDO_Topo_Geometry_Layer_Table();
+   for idx in 1 .. Topo_Geometry_Layers.count loop
+    layer_tab.extend;
+    layer_tab(idx) := Topo_Geometry_Layers(idx);
+   end loop;
+   return layer_tab;
+  end if;
+
+end;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."HHAND" ( hh1 IN RAW, hh2 IN RAW )
+    RETURN RAW IS
+begin
+ return md.hhand(hh1, hh2);
+end;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."HHBYTELEN" (ndim IN BINARY_INTEGER, mlv IN BINARY_INTEGER)
+    RETURN BINARY_INTEGER IS
+begin
+  return md.hhbytelen(ndim,mlv);
+end;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."HHCBIT" (hhc IN RAW, bit_number IN BINARY_INTEGER)
+    RETURN RAW IS
+begin
+ return md.hhcbit(hhc,bit_number);
+end;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."HHCELLBNDRY" (hhc IN RAW, dim IN BINARY_INTEGER,
+           lb IN NUMBER, ub IN NUMBER,lv IN BINARY_INTEGER, mm IN VARCHAR2)
+    RETURN NUMBER IS
+begin
+ return md.hhcellbndry(hhc,dim,lb,ub,lv,mm);
+end;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."HHCELLSIZE" (
+      l01 IN NUMBER,      u01 IN NUMBER,      lv01 IN BINARY_INTEGER,
+      l02 IN NUMBER:=NULL,u02 IN NUMBER:=NULL,lv02 IN BINARY_INTEGER:=NULL)
+    RETURN NUMBER IS
+begin
+  return md.hhcellsize(l01,u01,lv01,l02,u02,lv02);
+end;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."HHCLDATE" (jd IN NUMBER, fmt IN VARCHAR2)
+    RETURN VARCHAR2 IS
+begin
+  return md.hhcldate(jd,fmt);
+end;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."HHCOLLAPSE" ( hhc IN RAW,
+           d01 IN BINARY_INTEGER)
+    RETURN RAW IS
+begin
+ return md.hhcollapse(hhc, d01);
+end;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."HHCOMMONCODE" (hh1 IN RAW, hh2 IN RAW)
+    RETURN RAW IS
+begin
+ return md.hhcommoncode(hh1,hh2);
+end;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."HHCOMPARE" (hh1 IN RAW, hh2 IN RAW)
+    RETURN BINARY_INTEGER IS
+begin
+ return md.hhcompare(hh1,hh2);
+end;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."HHCOMPOSE" ( hhc IN RAW,
+           d01 IN BINARY_INTEGER)
+    RETURN RAW IS
+begin
+ return md.hhcompose(hhc,d01);
+end;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."HHDECODE" (
+           hhc IN RAW, dim IN BINARY_INTEGER, lb IN NUMBER, ub IN NUMBER)
+    RETURN NUMBER IS
+begin
+  return md.hhdecode(hhc,dim,lb,ub);
+end;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."HHDISTANCE" (type IN VARCHAR2, hh1 IN RAW, hh2 IN RAW,
+           l01 IN NUMBER,       u01 IN NUMBER)
+    RETURN NUMBER IS
+begin
+  return md.hhdistance(type,hh1,hh2,l01,u01);
+end;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."HHENCODE" (
+           v01 IN NUMBER,         l01 IN NUMBER,
+           u01 IN NUMBER,         p01 IN BINARY_INTEGER,
+           v02 IN NUMBER := NULL, l02 IN NUMBER := NULL,
+           u02 IN NUMBER := NULL, p02 IN BINARY_INTEGER := NULL,
+           v03 IN NUMBER := NULL, l03 IN NUMBER := NULL,
+           u03 IN NUMBER := NULL, p03 IN BINARY_INTEGER := NULL,
+           v04 IN NUMBER := NULL, l04 IN NUMBER := NULL,
+           u04 IN NUMBER := NULL, p04 IN BINARY_INTEGER := NULL,
+           v05 IN NUMBER := NULL, l05 IN NUMBER := NULL,
+           u05 IN NUMBER := NULL, p05 IN BINARY_INTEGER := NULL,
+           v06 IN NUMBER := NULL, l06 IN NUMBER := NULL,
+           u06 IN NUMBER := NULL, p06 IN BINARY_INTEGER := NULL,
+           v07 IN NUMBER := NULL, l07 IN NUMBER := NULL,
+           u07 IN NUMBER := NULL, p07 IN BINARY_INTEGER := NULL,
+           v08 IN NUMBER := NULL, l08 IN NUMBER := NULL,
+           u08 IN NUMBER := NULL, p08 IN BINARY_INTEGER := NULL,
+           v09 IN NUMBER := NULL, l09 IN NUMBER := NULL,
+           u09 IN NUMBER := NULL, p09 IN BINARY_INTEGER := NULL,
+           v10 IN NUMBER := NULL, l10 IN NUMBER := NULL,
+           u10 IN NUMBER := NULL, p10 IN BINARY_INTEGER := NULL,
+           v11 IN NUMBER := NULL, l11 IN NUMBER := NULL,
+           u11 IN NUMBER := NULL, p11 IN BINARY_INTEGER := NULL,
+           v12 IN NUMBER := NULL, l12 IN NUMBER := NULL,
+           u12 IN NUMBER := NULL, p12 IN BINARY_INTEGER := NULL,
+           v13 IN NUMBER := NULL, l13 IN NUMBER := NULL,
+           u13 IN NUMBER := NULL, p13 IN BINARY_INTEGER := NULL,
+           v14 IN NUMBER := NULL, l14 IN NUMBER := NULL,
+           u14 IN NUMBER := NULL, p14 IN BINARY_INTEGER := NULL,
+           v15 IN NUMBER := NULL, l15 IN NUMBER := NULL,
+           u15 IN NUMBER := NULL, p15 IN BINARY_INTEGER := NULL,
+           v16 IN NUMBER := NULL, l16 IN NUMBER := NULL,
+           u16 IN NUMBER := NULL, p16 IN BINARY_INTEGER := NULL,
+           v17 IN NUMBER := NULL, l17 IN NUMBER := NULL,
+           u17 IN NUMBER := NULL, p17 IN BINARY_INTEGER := NULL,
+           v18 IN NUMBER := NULL, l18 IN NUMBER := NULL,
+           u18 IN NUMBER := NULL, p18 IN BINARY_INTEGER := NULL,
+           v19 IN NUMBER := NULL, l19 IN NUMBER := NULL,
+           u19 IN NUMBER := NULL, p19 IN BINARY_INTEGER := NULL,
+           v20 IN NUMBER := NULL, l20 IN NUMBER := NULL,
+           u20 IN NUMBER := NULL, p20 IN BINARY_INTEGER := NULL,
+           v21 IN NUMBER := NULL, l21 IN NUMBER := NULL,
+           u21 IN NUMBER := NULL, p21 IN BINARY_INTEGER := NULL,
+           v22 IN NUMBER := NULL, l22 IN NUMBER := NULL,
+           u22 IN NUMBER := NULL, p22 IN BINARY_INTEGER := NULL,
+           v23 IN NUMBER := NULL, l23 IN NUMBER := NULL,
+           u23 IN NUMBER := NULL, p23 IN BINARY_INTEGER := NULL,
+           v24 IN NUMBER := NULL, l24 IN NUMBER := NULL,
+           u24 IN NUMBER := NULL, p24 IN BINARY_INTEGER := NULL,
+           v25 IN NUMBER := NULL, l25 IN NUMBER := NULL,
+           u25 IN NUMBER := NULL, p25 IN BINARY_INTEGER := NULL,
+           v26 IN NUMBER := NULL, l26 IN NUMBER := NULL,
+           u26 IN NUMBER := NULL, p26 IN BINARY_INTEGER := NULL,
+           v27 IN NUMBER := NULL, l27 IN NUMBER := NULL,
+           u27 IN NUMBER := NULL, p27 IN BINARY_INTEGER := NULL,
+           v28 IN NUMBER := NULL, l28 IN NUMBER := NULL,
+           u28 IN NUMBER := NULL, p28 IN BINARY_INTEGER := NULL,
+           v29 IN NUMBER := NULL, l29 IN NUMBER := NULL,
+           u29 IN NUMBER := NULL, p29 IN BINARY_INTEGER := NULL,
+           v30 IN NUMBER := NULL, l30 IN NUMBER := NULL,
+           u30 IN NUMBER := NULL, p30 IN BINARY_INTEGER := NULL,
+           v31 IN NUMBER := NULL, l31 IN NUMBER := NULL,
+           u31 IN NUMBER := NULL, p31 IN BINARY_INTEGER := NULL,
+           v32 IN NUMBER := NULL, l32 IN NUMBER := NULL,
+           u32 IN NUMBER := NULL, p32 IN BINARY_INTEGER := NULL)
+    RETURN RAW IS
+begin
+ return  md.hhencode(v01,l01,u01,p01, v02,l02,u02,p02, v03,l03,u03,p03,
+ v04,l04,u04,p04, v05,l05,u05,p05, v06,l06,u06,p06,
+ v07,l07,u07,p07, v08,l08,u08,p08, v09,l09,u09,p09,
+ v10,l10,u10,p10,
+ v11,l11,u11,p11, v12,l12,u12,p12, v13,l13,u13,p13,
+ v14,l14,u14,p14, v15,l15,u15,p15, v16,l16,u16,p16,
+ v17,l17,u17,p17, v18,l18,u18,p18, v19,l19,u19,p19,
+ v20,l20,u20,p20,
+ v21,l21,u21,p21, v22,l22,u22,p22, v23,l23,u23,p23,
+ v24,l24,u24,p24, v25,l25,u25,p25, v26,l26,u26,p26,
+ v27,l27,u27,p27, v28,l28,u28,p28, v29,l29,u29,p29,
+ v30,l30,u30,p30,
+ v31,l31,u31,p31, v32,l32,u32,p32);
+end;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."HHENCODE_BYLEVEL" (
+       v01 IN NUMBER, l01 IN NUMBER, u01 IN NUMBER, p01 IN BINARY_INTEGER,
+       v02 IN NUMBER:=NULL, l02 IN NUMBER:=NULL, u02 IN NUMBER:=NULL,
+       p02 IN BINARY_INTEGER:=NULL,
+       v03 IN NUMBER:=NULL, l03 IN NUMBER:=NULL, u03 IN NUMBER:=NULL,
+       p03 IN BINARY_INTEGER:=NULL,
+       v04 IN NUMBER:=NULL, l04 IN NUMBER:=NULL, u04 IN NUMBER:=NULL,
+       p04 IN BINARY_INTEGER:=NULL)
+    RETURN RAW IS
+begin
+ return md.hhencode_bylevel(v01, l01, u01, p01, v02, l02, u02, p02,
+                            v03, l03, u03, p03, v04, l04, u04, p04);
+end;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."HHGBIT" (hhc IN RAW, bit_number IN BINARY_INTEGER)
+    RETURN BINARY_INTEGER IS
+begin
+ return md.hhgbit(hhc, bit_number);
+end;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."HHGETCID" ( hhc IN RAW, lv IN BINARY_INTEGER )
+    RETURN NUMBER IS
+begin
+ return md.hhgetcid(hhc, lv);
+end;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."HHGROUP" (hhc IN RAW)
+    RETURN RAW IS
+begin
+ return md.hhgroup(hhc);
+end;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."HHGTBIT" (hhc IN RAW, topology IN BINARY_INTEGER)
+    RETURN VARCHAR2 IS
+begin
+ return md.hhgtbit(hhc, topology);
+end;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."HHGTYPE" (hhc IN RAW)
+    RETURN BINARY_INTEGER IS
+begin
+ return md.hhgtype(hhc);
+end;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."HHIDLPART" (type IN VARCHAR2, hhc IN RAW,
+           v001 IN NUMBER,       v002 IN NUMBER,
+           v003 IN NUMBER:=NULL, v004 IN NUMBER:=NULL,
+           v005 IN NUMBER:=NULL, v006 IN NUMBER:=NULL,
+           v007 IN NUMBER:=NULL, v008 IN NUMBER:=NULL,
+           v009 IN NUMBER:=NULL, v010 IN NUMBER:=NULL,
+           v011 IN NUMBER:=NULL, v012 IN NUMBER:=NULL,
+           v013 IN NUMBER:=NULL, v014 IN NUMBER:=NULL)
+    RETURN VARCHAR2 IS
+begin
+ return md.hhidlpart(type,hhc,
+    v001,v002,v003,v004,v005,v006,v007,v008,v009,v010,v011,v012,v013,v014);
+end;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."HHIDPART" (type IN VARCHAR2,hhc IN RAW,
+           v001 IN NUMBER,       v002 IN NUMBER,
+           v003 IN NUMBER:=NULL, v004 IN NUMBER:=NULL,
+           v005 IN NUMBER:=NULL, v006 IN NUMBER:=NULL,
+           v007 IN NUMBER:=NULL, v008 IN NUMBER:=NULL,
+           v009 IN NUMBER:=NULL, v010 IN NUMBER:=NULL,
+           v011 IN NUMBER:=NULL, v012 IN NUMBER:=NULL,
+           v013 IN NUMBER:=NULL, v014 IN NUMBER:=NULL)
+    RETURN VARCHAR2 IS
+begin
+  return md.hhidpart(type,hhc,
+    v001,v002,v003,v004,v005,v006,v007,v008,v009,v010,v011,v012,v013,v014);
+end;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."HHINCRLEV" (hhc IN RAW, lv IN BINARY_INTEGER)
+    RETURN RAW IS
+begin
+ return md.hhincrlev(hhc, lv);
+end;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."HHJLDATE" (ds IN VARCHAR2, fmt IN VARCHAR2)
+    RETURN NUMBER IS
+begin
+ return md.hhjldate(ds,fmt);
+end;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."HHLENGTH" (hhc IN RAW, dim IN BINARY_INTEGER := NULL)
+    RETURN BINARY_INTEGER IS
+begin
+ if dim is NULL then
+   return md.hhlength(hhc);
+ end if;
+ return md.hhlength(hhc,dim);
+end;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."HHLEVELS" (lb IN NUMBER, ub IN NUMBER, pr IN BINARY_INTEGER)
+    RETURN BINARY_INTEGER IS
+begin
+ return md.hhlevels(lb,ub,pr);
+end;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."HHMATCH" (hh1 IN RAW, hh2 IN RAW)
+    RETURN BINARY_INTEGER IS
+begin
+  return md.hhmatch(hh1,hh2);
+end;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."HHMAXCODE" (hhc IN RAW, maxlen IN NUMBER)
+    RETURN RAW IS
+begin
+ return md.hhmaxcode(hhc, maxlen);
+end;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."HHNCOMPARE" (hh1 IN RAW, hh2 IN RAW, lv IN BINARY_INTEGER)
+    RETURN BINARY_INTEGER IS
+begin
+ return md.hhncompare(hh1,hh2,lv);
+end;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."HHNDIM" (hhc IN RAW) RETURN BINARY_INTEGER IS
+begin
+  return md.hhndim(hhc);
+end;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."HHOR" ( hh1 IN RAW, hh2 IN RAW )
+    RETURN RAW IS
+begin
+ return md.hhor(hh1, hh2);
+end;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."HHORDER" (hhc IN RAW)
+    RETURN RAW IS
+begin
+ return md.hhorder(hhc);
+end;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."HHPRECISION" (lb IN NUMBER, ub IN NUMBER, lv IN BINARY_INTEGER)
+    RETURN BINARY_INTEGER IS
+begin
+  return md.hhprecision(lb,ub,lv);
+end;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."HHSBIT" (hhc IN RAW, bit_number IN BINARY_INTEGER)
+    RETURN RAW IS
+begin
+ return md.hhsbit(hhc, bit_number);
+end;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."HHSETCID" ( hhc IN RAW, lv IN BINARY_INTEGER, cid IN NUMBER )
+    RETURN RAW IS
+begin
+ return md.hhsetcid(hhc, lv, cid);
+end;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."HHSTBIT" (hhc IN RAW, topology IN BINARY_INTEGER, type IN VARCHAR2)
+    RETURN RAW IS
+begin
+ return md.hhstbit(hhc, topology,type);
+end;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."HHSTYPE" (hhc IN RAW, type_id IN BINARY_INTEGER)
+    RETURN RAW IS
+begin
+ return md.hhstype(hhc, type_id);
+end;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."HHSUBDIVIDE" (hh1 IN RAW, cid IN BINARY_INTEGER)
+    RETURN RAW IS
+begin
+ return md.hhsubdivide(hh1, cid);
+end;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."HHSUBSTR" (hhc IN RAW, slv IN BINARY_INTEGER, elv IN BINARY_INTEGER)
+    RETURN RAW IS
+begin
+  return md.hhsubstr(hhc, slv, elv);
+end;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."HHXOR" ( hh1 IN RAW, hh2 IN RAW )
+    RETURN RAW IS
+begin
+ return md.hhxor(hh1, hh2);
+end;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."OGC_AREA" (
+  s ST_Geometry)
+    RETURN NUMBER DETERMINISTIC IS
+BEGIN
+  IF(nls_upper(OGC_GeometryType(s)) IN ('POLYGON', 'ST_POLYGON')) THEN
+    RETURN TREAT(s AS ST_Surface).ST_Area();
+  END IF;
+  IF(nls_upper(OGC_GeometryType(s)) IN ('MULTIPOLYGON', 'ST_MULTIPOLYGON')) THEN
+    RETURN TREAT(s AS ST_MultiSurface).ST_Area();
+  END IF;
+  RETURN NULL;
+END OGC_Area;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."OGC_ASBINARY" (
+  g ST_Geometry)
+    RETURN BLOB IS
+BEGIN
+  RETURN g.GET_WKB();
+END OGC_AsBinary;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."OGC_ASTEXT" (
+  g ST_Geometry)
+    RETURN VARCHAR2 IS
+BEGIN
+  RETURN g.GET_WKT();
+END OGC_AsText;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."OGC_BOUNDARY" (
+  g ST_Geometry)
+    RETURN ST_Geometry IS
+BEGIN
+  RETURN g.ST_Boundary();
+END OGC_Boundary;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."OGC_BUFFER" (
+  g ST_Geometry,
+  d NUMBER)
+    RETURN ST_Geometry DETERMINISTIC IS
+BEGIN
+  RETURN g.ST_Buffer(d);
+END OGC_Buffer;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."OGC_CENTROID" (
+  g ST_Geometry)
+    RETURN ST_Geometry IS
+BEGIN
+  RETURN g.ST_Centroid();
+END OGC_Centroid;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."OGC_CONTAINS" (
+  g1 ST_Geometry,
+  g2 ST_Geometry)
+    RETURN Integer IS
+BEGIN
+  RETURN g1.ST_Contains(g2);
+END OGC_Contains;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."OGC_CONVEXHULL" (
+  g ST_Geometry)
+    RETURN ST_Geometry IS
+BEGIN
+  RETURN g.ST_ConvexHull();
+END OGC_ConvexHull;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."OGC_CROSS" (
+  g1 ST_Geometry,
+  g2 ST_Geometry)
+    RETURN Integer DETERMINISTIC IS
+BEGIN
+  RETURN g1.ST_Cross(g2);
+END OGC_Cross;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."OGC_DIFFERENCE" (
+  g1 ST_Geometry,
+  g2 ST_Geometry)
+    RETURN ST_Geometry IS
+BEGIN
+  RETURN g1.ST_Difference(g2);
+END OGC_Difference;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."OGC_DIMENSION" (
+  g ST_Geometry)
+    RETURN Integer IS
+BEGIN
+  RETURN g.ST_CoordDim();
+END OGC_Dimension;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."OGC_DISJOINT" (
+  g1 ST_Geometry,
+  g2 ST_Geometry)
+    RETURN Integer IS
+BEGIN
+  RETURN g1.ST_Disjoint(g2);
+END OGC_Disjoint;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."OGC_DISTANCE" (
+  g1 ST_Geometry,
+  g2 ST_Geometry)
+    RETURN NUMBER DETERMINISTIC IS
+BEGIN
+  RETURN g1.ST_Distance(g2);
+END OGC_Distance;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."OGC_ENDPOINT" (
+  c ST_Curve)
+    RETURN ST_Point IS
+BEGIN
+  RETURN c.ST_EndPoint();
+END OGC_EndPoint;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."OGC_ENVELOPE" (
+  g ST_Geometry)
+    RETURN ST_Geometry IS
+BEGIN
+  RETURN g.ST_Envelope();
+END OGC_Envelope;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."OGC_EQUALS" (
+  g1 ST_Geometry,
+  g2 ST_Geometry)
+    RETURN Integer DETERMINISTIC IS
+BEGIN
+  RETURN g1.ST_Equals(g2);
+END OGC_Equals;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."OGC_EXTERIORRING" (
+  p ST_Polygon)
+    RETURN ST_LineString IS
+BEGIN
+  RETURN p.ST_ExteriorRing();
+END OGC_ExteriorRing;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."OGC_GEOMETRYN" (
+  g ST_GeomCollection,
+  n Integer)
+    RETURN ST_Geometry IS
+  arr ST_GEOMETRY_ARRAY;
+BEGIN
+  arr := g.ST_Geometries();
+  RETURN arr(n);
+END OGC_GeometryN;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."OGC_GEOMETRYTYPE" (
+  g ST_Geometry)
+    RETURN VARCHAR2 IS
+BEGIN
+  RETURN g.ST_GeometryType();
+END OGC_GeometryType;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."OGC_INTERIORRINGN" (
+  p ST_Polygon,
+  n Integer)
+    RETURN ST_LineString IS
+  arr ST_LineString_Array;
+BEGIN
+  arr := p.ST_InteriorRingsP();
+  RETURN arr(n);
+END OGC_InteriorRingN;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."OGC_INTERSECTION" (
+  g1 ST_Geometry,
+  g2 ST_Geometry)
+    RETURN ST_Geometry IS
+BEGIN
+  RETURN g1.ST_Intersection(g2);
+END OGC_Intersection;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."OGC_INTERSECTS" (
+  g1 ST_Geometry,
+  g2 ST_Geometry)
+    RETURN Integer DETERMINISTIC IS
+BEGIN
+  RETURN g1.ST_Intersects(g2);
+END OGC_Intersects;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."OGC_ISCLOSED" (
+  g ST_Geometry)
+    RETURN Integer DETERMINISTIC IS
+BEGIN
+  IF(nls_upper(OGC_GeometryType(g)) IN ('LINESTRING', 'ST_LINESTRING', 'ST_CIRCULARSTRING', 'ST_COMPOUNDCURVE')) THEN
+    RETURN TREAT(g AS ST_Curve).ST_IsClosed();
+  END IF;
+  IF(nls_upper(OGC_GeometryType(g)) IN ('MULTILINESTRING', 'ST_MULTILINESTRING', 'ST_MULTICURVE')) THEN
+    RETURN TREAT(g AS ST_MultiCurve).ST_IsClosed();
+  END IF;
+  RETURN NULL;
+END OGC_IsClosed;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."OGC_ISEMPTY" (
+  g ST_Geometry)
+    RETURN Integer IS
+BEGIN
+  RETURN g.ST_IsEmpty();
+END OGC_IsEmpty;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."OGC_ISRING" (
+  c ST_Curve)
+    RETURN Integer DETERMINISTIC IS
+BEGIN
+  RETURN c.ST_IsRing();
+END OGC_IsRing;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."OGC_ISSIMPLE" (
+  g ST_Geometry)
+    RETURN Integer DETERMINISTIC IS
+BEGIN
+  RETURN g.ST_IsSimple();
+END OGC_IsSimple;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."OGC_LENGTH" (
+  g ST_Geometry) RETURN NUMBER DETERMINISTIC IS
+BEGIN
+  IF(nls_upper(OGC_GeometryType(g)) IN ('LINESTRING', 'ST_CIRCULARSTRING', 'ST_COMPOUNDCURVE', 'ST_LINESTRING')) THEN
+    RETURN TREAT(g AS ST_Curve).ST_Length();
+  END IF;
+  IF(nls_upper(OGC_GeometryType(g)) IN ('MULTILINESTRING', 'ST_MULTILINESTRING')) THEN
+    RETURN TREAT(g AS ST_MultiCurve).ST_Length();
+  END IF;
+  RETURN NULL;
+END OGC_Length;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."OGC_LINESTRINGFROMTEXT" (
+  wkt   IN VARCHAR2,
+  srid  IN INTEGER DEFAULT NULL)
+    RETURN ST_LineString IS
+BEGIN
+  RETURN TREAT(ST_GEOMETRY.FROM_WKT(wkt, srid) AS ST_LineString);
+END OGC_LineStringFromText;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."OGC_LINESTRINGFROMWKB" (
+  wkb   IN BLOB,
+  srid  IN INTEGER DEFAULT NULL)
+    RETURN ST_LineString IS
+BEGIN
+  RETURN TREAT(ST_GEOMETRY.FROM_WKB(wkb, srid) AS ST_LineString);
+END OGC_LineStringFromWKB;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."OGC_MULTILINESTRINGFROMTEXT" (
+  wkt   IN VARCHAR2,
+  srid  IN INTEGER DEFAULT NULL)
+    RETURN ST_MultiLineString IS
+BEGIN
+  RETURN TREAT(ST_GEOMETRY.FROM_WKT(wkt, srid) AS ST_MultiLineString);
+END OGC_MultiLineStringFromText;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."OGC_MULTILINESTRINGFROMWKB" (
+  wkb   IN BLOB,
+  srid  IN INTEGER DEFAULT NULL)
+    RETURN ST_MultiLineString IS
+BEGIN
+  RETURN TREAT(ST_GEOMETRY.FROM_WKB(wkb, srid) AS ST_MultiLineString);
+END OGC_MultiLineStringFromWKB;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."OGC_MULTIPOLYGONFROMTEXT" (
+  wkt   IN VARCHAR2,
+  srid  IN INTEGER DEFAULT NULL)
+    RETURN ST_MULTIPOLYGON IS
+BEGIN
+  RETURN TREAT(ST_GEOMETRY.FROM_WKT(wkt, srid) AS ST_MULTIPOLYGON);
+END OGC_MultiPolygonFromText;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."OGC_MULTIPOLYGONFROMWKB" (
+  wkb   IN BLOB,
+  srid  IN INTEGER DEFAULT NULL)
+    RETURN ST_MULTIPOLYGON IS
+BEGIN
+  RETURN TREAT(ST_GEOMETRY.FROM_WKB(wkb, srid) AS ST_MULTIPOLYGON);
+END OGC_MultiPolygonFromWKB;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."OGC_NUMGEOMETRIES" (
+  g ST_GeomCollection)
+    RETURN Integer IS
+BEGIN
+  RETURN g.ST_Geometries().LAST;
+END OGC_NumGeometries;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."OGC_NUMINTERIORRINGS" (
+  p ST_Polygon)
+    RETURN Integer IS
+BEGIN
+  RETURN p.ST_InteriorRingsP().LAST;
+END OGC_NumInteriorRings;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."OGC_NUMPOINTS" (
+  c ST_Curve)
+    RETURN Integer IS
+BEGIN
+  RETURN c.ST_NumPoints();
+END OGC_NumPoints;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."OGC_OVERLAP" (
+  g1 ST_Geometry,
+  g2 ST_Geometry)
+    RETURN Integer IS
+BEGIN
+  RETURN g1.ST_Overlap(g2);
+END OGC_Overlap;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."OGC_POINTFROMTEXT" (
+  wkt   IN VARCHAR2,
+  srid  IN INTEGER DEFAULT NULL)
+    RETURN ST_Point IS
+BEGIN
+  RETURN TREAT(ST_GEOMETRY.FROM_WKT(wkt, srid) AS ST_Point);
+END OGC_PointFromText;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."OGC_POINTFROMWKB" (
+  wkb   IN BLOB,
+  srid  IN INTEGER DEFAULT NULL)
+    RETURN ST_Point IS
+BEGIN
+  RETURN TREAT(ST_GEOMETRY.FROM_WKB(wkb, srid) AS ST_Point);
+END OGC_PointFromWKB;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."OGC_POINTN" (
+  c ST_Curve,
+  n Integer)
+    RETURN ST_Point IS
+BEGIN
+  RETURN c.ST_PointN(n);
+END OGC_PointN;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."OGC_POINTONSURFACE" (
+  s ST_Geometry)
+    RETURN ST_Point DETERMINISTIC IS
+BEGIN
+  IF(nls_upper(OGC_GeometryType(s)) IN ('POLYGON')) THEN
+    RETURN TREAT(s AS ST_Surface).ST_PointOnSurface();
+  END IF;
+  IF(nls_upper(OGC_GeometryType(s)) IN ('MULTIPOLYGON')) THEN
+    RETURN TREAT(s AS ST_MultiSurface).ST_PointOnSurface();
+  END IF;
+  RETURN NULL;
+END OGC_PointOnSurface;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."OGC_POLYGONFROMTEXT" (
+  wkt   IN VARCHAR2,
+  srid  IN INTEGER DEFAULT NULL)
+    RETURN ST_POLYGON IS
+BEGIN
+  RETURN TREAT(ST_GEOMETRY.FROM_WKT(wkt, srid) AS ST_POLYGON);
+END OGC_PolygonFromText;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."OGC_POLYGONFROMWKB" (
+  wkb   IN BLOB,
+  srid  IN INTEGER DEFAULT NULL)
+    RETURN ST_POLYGON IS
+BEGIN
+  RETURN TREAT(ST_GEOMETRY.FROM_WKB(wkb, srid) AS ST_POLYGON);
+END OGC_PolygonFromWKB;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."OGC_RELATE" (
+  g1            ST_Geometry,
+  g2            ST_Geometry,
+  PatternMatrix VARCHAR2)
+    RETURN Integer DETERMINISTIC IS
+BEGIN
+  RETURN g1.ST_Relate(g2, PatternMatrix);
+END OGC_Relate;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."OGC_SRID" (
+  g ST_Geometry)
+    RETURN Integer IS
+BEGIN
+  RETURN g.ST_SRID();
+END OGC_SRID;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."OGC_STARTPOINT" (
+  c ST_Curve)
+    RETURN ST_Point IS
+BEGIN
+  RETURN c.ST_StartPoint();
+END OGC_StartPoint;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."OGC_SYMMETRICDIFFERENCE" (
+  g1 ST_Geometry,
+  g2 ST_Geometry)
+    RETURN ST_Geometry DETERMINISTIC IS
+BEGIN
+  RETURN g1.ST_SymmetricDifference(g2);
+END OGC_SymmetricDifference;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."OGC_TOUCH" (
+  g1 ST_Geometry,
+  g2 ST_Geometry)
+    RETURN Integer IS
+  result VARCHAR2(128);
+BEGIN
+  RETURN g1.ST_Touch(g2);
+END OGC_Touch;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."OGC_UNION" (
+  g1 ST_Geometry,
+  g2 ST_Geometry)
+    RETURN ST_Geometry IS
+BEGIN
+  RETURN g1.ST_Union(g2);
+END OGC_Union;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."OGC_WITHIN" (
+  g1 ST_Geometry,
+  g2 ST_Geometry)
+    RETURN Integer IS
+BEGIN
+  RETURN g1.ST_Within(g2);
+END OGC_Within;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."OGC_X" (
+  p ST_Point)
+    RETURN NUMBER IS
+BEGIN
+  RETURN p.ST_X();
+END OGC_X;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."OGC_Y" (
+  p ST_Point)
+    RETURN NUMBER IS
+BEGIN
+  RETURN p.ST_Y();
+END OGC_Y;
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."QRY2OPT" wrapped
+a000000
+1
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+8
+f0c 629
++9tDshVMOd0UkMulo0aG77FcM+Mwg+3qmtCreC+5gqoCD8VvpGtnkiXxCpE8HVSDDR8FE3au
+CvbWd7dRmEaM8puav9QeVSp2NtzlI+bG4gAknTrJfm9j8pB3GBAxEE8iEBlJ3t51VbSX3eEs
+O9+Ei840wimewP8Zx7fiU1jLk9Dtzu+tlcfjGhrT6ibxaPcn5QOGY7YYRVdvoxPX0/X/2FCU
+AKmCE+6916z9QQUr971UpWXHWY2T36WbOXHejohlCXDAiM4Bh0WNjnSzfw5xXKN8P+3IRJEJ
+N30qiwN0wp6O3sI2H27SabbbTrKGJ4JwAN7McWBS12MGyV6hQ3C9yUCYJsAktGx9hd/N3/oU
+ILAdgwMmmPYhxzcBpPPFTfu/lOEDJVHsX2PEFZjnWtxtwyOtJm/sNvUICQ58yuxzDc++ndGv
+fqv7absP51CDu8QI9mUcwpKGHmcY57wAK9sNWaN47/LKzIXGrz9UTgRXuZdwZ406NGAuEUSw
+f2Op1AN1Pg3zhmdulIDzW0KPBsykWg/8n7swx8sMJiNW/xSsFFZs0tGLvjtT6by+941C9zUB
+sTK3FEzQy9z3kKRvwfFsIzA7kDL6gr7IynteLpkPZT3QEg0kkRByPflEYmZahG+SypMnZoCl
+DY7c5F4E6cSqcaJr/XEkdBm6gQLtJYvpVzTpNv/fb+9vL0O3pc8xWni4UPFbHvE5MUyRzykQ
+sT+NMoxZsHb34tru8QzRcN6m4jMxYD5ETbH2rc0wPE09dH2rfy+o4r1NMiakd0S9LimwWQVr
+GsP/O4Kh9hGFpXH6Z2JV5bp2NFg8+bhlYF/2yeAlyM5lYux8QDclwbe7J+ZIj0qw0cHRTFV2
+SFqNyWOmJKBI4g08xSlR/5lJI4nq2tm3UrYXgmtquJ18hczF60V9DXqjpmC5KIR2Y0UAxsk/
+tvp9tAeUzuubF2NV5pzyMNV3hozvQE9N0ia57wIvUufm0eT6WXj73oiSJmoBy0xbXRX7rNH/
+LGtVSwgOSfWlBs0HgJV3RBkuFMt4F/J9v5ruvGV0H/GoOPTB5jvnWAK1rV+PIs7q4ajlDCVu
+NwSvGj42UR8GIx+udLroPlQSpgvR3XX37iXmjW2eD6BrG2sEWk4IhjMTVZq7M3PuE/oFKWSd
+6TX+neQDVRAXmM2xVWo/2WGYVetKAHoJUF5MU/lwny87qghJz8dXgl3xGrp1D5WVNVrIFvoj
+7TMO0Lx73b3Uy6NyBZF7HO/EKUglZzz2jg/WlzJTVmH4nfkiN9k9hXY4Xpo+f4IYqong9r6f
+gEDhsSD73zq5p8M58Paa+nkEiXyT8l2Pfh8qeJHJ0gdgU7K5qX1SCBv32zjhqGlCgvSCGlPJ
+UoiGlbm+vEgCez0f2tIq3dW+cLze/xpSStPe6GIUWyHOZLqGdkSHMatbVzwkuMlBtXU2jiEM
+BRWGilxF02gIlyiaHt7ZpZq94kFFOgCqvJokaKrgIsbNTpb4+CQkeU8xxkkzzqAXBSAocvg/
+ora7liM7qmvXBnUqQN6KOEvBdyM2YGcnM+udnlAgnA==
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."RTREEJOINFUNC" wrapped
+a000000
+1
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+8
+24e 154
+kDmc8FI8Q5ZsT0T12KvQz601CE8wg5DxLdzbfHRAWEKe0AAmeylFZWP0us+ce/eGppBlDv1I
+vrcvNCQpsl9iyK+nYqqdAXOIZbpj3cpPLMFOCJ++yw+x/ovzPEHX4foC7AbeaJmt7i1vzXvp
+i6be3PiPVvPaz+8cFRvrc1i980RXrgDymR6Mt6FJkO8VbfP4fhoFyJ+hDBgRN85b+wfW+oce
+8rt4MK9rojWAPBb56qIumnPmAcRo0U2TMH8KWjBsnGn2eKt/GYyWhej+5y55FlWdr+B5JNYE
+HC0m/xyjTS0FVT1m6dLbfcpJBvOiRAgE45kuLX3ranjj0M+E
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."SDO_AGGR_CENTROID" wrapped
+a000000
+1
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+8
+d2 ca
+HyJXC/9gd9vAtw7Y+kBcdC1NO2Ywg5BKf8sVfC82Jk4Y1WvuHcPUh9i3isf1Ih8maKlmq8hm
++ZbxG9J+xKPeySAuNFLz5Wv1eHIM/tCxF0Iku4AfjGZ7hKL6fJARDqq3hJD8QjJ+aRNgbiun
+FeyXIB6YFt0OWAIKLbCzJgy9JoRoKji00MwKVvdhuajoAmpDpUQwWGUa
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."SDO_AGGR_CONCAT_LINES" wrapped
+a000000
+1
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+8
+92 be
+S4HgxVjBtKe0VH3kL2YdkMxFs4Mwg3kY2ssVfHRnWBKe0Eu4+xu3dRbxhsoFiHvp52sYY42p
++Ar8UPAIEEgurMHFcC2fbuiuKNnkz+R7ncGx/nVNb8Cka6L9zTQumHuypvIZw/mi410abAzf
+cvu5TYVZaKGllyFw8vK9kA6Tpzb9B8X7c8BU+7B2xSo=
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."SDO_AGGR_CONVEXHULL" wrapped
+a000000
+1
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+8
+d3 d2
+DkzgjF9FMruQkWu01gS6fw3cjxcwg5BKLcsVfHSiWPiUiDjuW3VZ4CVaSl6ty2ZeG3djxdPT
+43KwTJf/ebC3GZgMOAqoLfrRKgTGFwPQOhC10mTeg9b+rByOAOjjxT31i2SinPYi0RiNTTLd
+auHTd2bkBYPJUk0Wf7iFq9iIZ6nnJqhqWEsFh1jxHRIDnxPOGMS8L5CfDyxtgts=
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."SDO_AGGR_LRS_CONCAT" wrapped
+a000000
+1
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+8
+bd ce
+Ar3Ihk9xFN92cvwYDLs8tP/drEEwgwJKLcsVfHSiWPiUHNkVKHy+9PRmbNwB2oTo53/1Hb0I
+tWZMl4V5sOsSRboBFy18TZakxM1VtxG/ZMGG+Vh/NmupYDfyG7c5tuQMM4PSZX7afnljTnBG
+2J61YT/nAIihSnY9UdaURF5Rd/RSoSGkWw4nXaYSLLVxOAefABD7Bhd8AQ==
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."SDO_AGGR_LRS_CONCAT_3D" wrapped
+a000000
+1
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+8
+d0 d2
+b7PFE8AOB8IlOiAJlY6owBzu0Z0wg43/LZ7hfy82aR74GImDtHHeDRv25xQTC79eGqPbBntE
+CLV/sW4N67Id0L4qm+zFrb09cEyap5NHnUHQ+MaLuEYEiO8WYNhEjZgTaKo+NUVuW53Mgx96
+sjfM/esgA5AoTYVszNMuGWLdyILJhKz21N6dhuwUGEgehktkXTXBuK3P+/r+gsA=
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."SDO_AGGR_MBR" wrapped
+a000000
+1
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+8
+82 aa
+ru7MSH8RmWDnFT+3TZPl97ng9vYwg3nwqNNqfHQ2bU6er0DSHenyzwgR1Kfa8XSsdGr4qlDs
+W7nRtIweHCWJeg2vsYGkMgMXYArDt0/57D9mFf8yqGWieO30iS9LxcUcwusH8Aw1iGkZnm//
+McitZ1Xpgi75ZBnQLNb/FKE=
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."SDO_AGGR_SET_UNION" wrapped
+a000000
+1
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+8
+b8 ce
+HQOnFpUr8I2TSX4pChuJqUf5NAQwg3lKLZ4VZy+iO06UuqvI5GflDEgAbzQAtFXV4oPyrC42
+CLXMHbPUSATJMLtxQt/FdKttBwFCU4dPh7EFEAAbVoguq11NLgdy4GR640af4dUfj+xJibwd
+L6DF5BfL87Jstrer12eDLnXjqpzwQfF0ErjpTpcgA2TUYB7Gy61KBx+3HSFW
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."SDO_AGGR_UNION" wrapped
+a000000
+1
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+8
+92 be
+9OdtXznwFtdo9QVGZMwVI96cajgwg+lKf8sVfC82Jk4Y1WvuHcOANG5WMcF9z9Fxvl8RrNu1
+mfEbiQqI8DM99TNUiScW1rGB2oMz+X7qb3/n2jZsajteyw2x+OKkhfisBaKRpcmSF4Z3HXan
+jNT8UugC8F7mq2k/G1kXQaPwxfWK6PjQxkNbWrM+zw==
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."SDO_CONSTRUCT_DIM_ARRAY" wrapped
+a000000
+1
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+8
+36b 20f
+Xp5SO+p/GsNEXT2+F5pIFNSos4Qwg43xryCsfI7UvzNkMHjKUjZon4hFNinrKms73tnosNR9
+AQfXolU4tXODGONap1+4jw0sD5r+EpBcNFDDuFd+v8kD+Ht2/poTjDE/z+yBP535vb6oiftD
+Mz1XgK02YvLqThguzGAd9EXxdgTM1ZTVZm4ZXQmL1Q4nprg+EhSTYt3TiPU2SLK+n9OewbC5
+FWJl4Baq2QzyX3m9Af+Z0qtxb1O4a3vFufEhrgwqdQZuwL//dPzdCwQ3yLjFh49/4XMY3OHK
+x+VLHh5K5tzYhCv4V1mGvRRSm7GdLsF51t+JwaEkp3zKlAsKcOf+3m5weyOr5k44TIyKGHPw
+8A/LZFx/0Q3N7kbdINdWHfzokNQI9Ok+2xWAvnVQhTFPEtpbUuYsY7zKO1h4fc25mOnHghpA
+H+8WAYomiNXCAsg43ePwpLQUInOE8RS8MasgPIYjvsq1oNzrh/Y4eRr8Rz05A76kj+a4YwFc
+fTwunfhExMcFCQ==
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."SDO_GET_ITYP_NAME" wrapped
+a000000
+1
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+8
+1d0 185
+isF+xiZ8LX5NwNBOAhQP+IVheocwg43IfyAVfC8C2vjqaDladN5F838EwcqnigyRDxaQVhRR
+nvRA5coNc/4y4RTHAFQ8ErxyciBMt+BM03HLwaUZcWoIkviIg3OAgj060TBcDo1LjdyUJWPH
++7WTpDcalTg/G3bAzREvyoBgFyrecqM1bJAhOS5n8dXWDu1TzM47qz7rnPWn6WoDQ8xZtxT0
+m5547ByL4L220DmUaqWWVJglFfn1nsYzUOQhHzBiUKhunQWLmadLMDmhrdKLeconKRS285Kp
+HY/LXNd/aw119oiuc9bsU3YdsYfrOdQcwYTvMaRRS/wF0PPn8ko1etuQ21Rwrhgsa4N1SHQ+
+uwNoE89x+qIXenP7Oumflg==
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."SDO_GET_TAB_PART" wrapped
+a000000
+1
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+8
+3cf 21f
+D/UaevzVUm2R4DPZBBPrLr4jiF8wg2Ne1yCsfI6aWJ0GVXdGL4ZIqyjnkCE3lxExaCY1ihu9
+rPvT/sFkO5st19kbWyW8+SKH+BkSGPRqpUBn7ZY6BxEwt4rOPibsfwPqbnscnn4wLe/GA4xY
+3t0sImxniqZzt0pVzRD58o/ctcj3SgB/ZtsGTSipbQQY4Vl8AbT7WfDZkITa4KQR5FcTVl37
+Aa/KVxPcsGU05vZZg2o602ANhemD3f8JlIXs2FYw93aVbLv+5Xrm8cFM9CEOQJAmjJMtLGDr
+mSnPL43IrPG3mYdBmcyv04tYJU3r1lcbyI747mqgVAFoNYGLW3wNGmPOduPljkhtYbTcwzUg
+bT+dI1siKpW7WRKKJtiB5gbr/e6zFchHM+37UG+tf4Sp1qa+tKfVTB1ZtOhkOFl/k4QkW8mx
+JYsO2tfis0dhF2/qKFsCI2GHAKJwanqOzMiq4NIdUfCRKaGK+BhA4wpe7TOrEIynmJ4WxD7p
+8wMWy+YsUpKK9sZS1agToX8svKYUuJKi
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."SDO_JOIN" wrapped
+a000000
+1
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+8
+43d6 11d2
+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
+Dtp/c36DnbyLYHyRFUl3P0OiVvkIJIgeD6g=
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."SDO_OWM_INSTALLED" wrapped
+a000000
+1
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+8
+76 9e
+OiQjEUEomT6oKu6yj8B6CycHdEMwg1xHLbJqfHSizLHsrLaR++rxMr3nWrCpGvEJ+CA4U3+P
++bX+QXrmW5UeVIaanCXvxEDs2y/rFm7t3RpmcEwmHCOFeAVcDUSLJcoxXq+AQg+c/tY6Hje5
+vdj4n+Fk88o4
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."SDO_POINTINPOLYGON" wrapped
+a000000
+1
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+8
+16c 11b
+LRBp9eSEHVNEJGhhF93mQX1GTBUwg43ILSfbfHRA2ppeETTWJWv2SWzMCZTp38JxpV1DDo7y
+ZaAMmvmKmEnjG6F9tc6BcpOAwQ6lElX2aJ3EJBkG+U61DSDBf/0a8eWzaIOOijo2BydrSzx8
+z6bVGj53Ire6rZcIyqRrQqR9S/TjQPb8kq6gCKTNlBvsf214DoVj7l96EzMPD2nZRkr05NLI
+GMjDCXZGj2hv//5TI9+EN58Z+/fvvdUuyLYe4X9Le/Z0CacOjbFUc80pOez7aQQ=
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."SDO_PQRY" wrapped
+a000000
+1
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+8
+104f 68a
++ZbJFoRPqT1stoW/d6sHuXUA+0wwg9cETNAG30ty5BgphOkRx2jREs0mQzMayFeP3y1extIO
+lvNiw8Ql0dhv3L/+u9qfirQ3S2M7xSrT01i7u4hawVaniYIWtoeUJG1sNmXswwF670I2naJm
+QengjqzhwhZJy3fW4gfCXYmT+5Y4SkKfols0U3E7Dr1LQiKo4VynPYmlRlqrakbCWlbVlxRY
+ZuK64UVKdL5K1pLmGlRBqGJm80MBC9MUFPCLWKJVk9+mXfOi/0TWej6cQy9EUTgEnV/KxezZ
+iOyIcgLKWStO8edGb6DKiAEUNZg11WNBvGFzC/DQWM9vZJsC8iEcO002oQgNXadVDv8OAYe0
+MKDhCQvzja50tT4r0ZnhfVICMUfFc0Dc3rU3sN8nr309ZwHwVnDCitKm6XHqhcm82lILRCbW
+d8zlr9c9cIpLRTAOmQXMJoC0TjRhxdotrQE9UQk7Nuh2pM9COfn2H3qj9dk1zpt0NAzLDBFI
+x81qAEvVPZ5rXBSioHYKBK6FicKHcjZo0P4oxGn/SWOOGTTn+9rf737FFxz1peDDgNSuWhNM
++9BYlEctIzHA2Mt9gtoRE3OiA0QcgsQqEr6f2Dl9x6tp17SiVgLK5+wpRvBpKPTjbC91b+s4
+IFBoR/f7uDjGcvc2DJtfjmI4psBgVHIUded/jvNioY1JlLy489JOGizmLCSW4iBgZLworyeK
+qjQF4r8sNZlxu98StLnLpUt75PkcuepPeK6r62SEolB07Bytc79iM6FflNzUE8S4R3eb/xPq
+xYBa05yEPmYr6HFdKzi02PQ30UjKk6FFNnVkC4bQu09IGxShgkr79X6D4iarrpZkZOJHFnyg
+4r7g/0sjiy31eW8W9KhxsmRKTyDQ/FoKP5l4tXo7cySfLEFw/jYomLCydhlkYQ6oHpgH15+q
+xAW5OALnjfxzB8bGVes4A9+tYQw7jbja4/AC+f9zm2/io5+DL2hZA2uTq6EC9hRQuZhnQEg/
+RcB6+CGCZfWGKvW2m9O9n5JASKnswkjljHkAk1oNRUKjCPrQFKe1/9YMNFNZWgfvVOpVYuUi
+NMpZLOG079T/8ZF9L6KD6u2Q1XqfFD0f4C7xnor35+ot769DLGz3X8rloRnX48piqOSk7+FI
+ugtx8OGaf0+HKGi6IH4stlvRbGzXbV/DPtcU8zVi6bjRXFINCe7pvr/TvuuXKVZ0IeXQslmS
+UNuKkdbfhqllNLmRjQgmDUqS/W1Fc+thsILktZDVYa+YT4cKcYqTQgllD7ECa3J6t3bDZQYC
+dMgi0q4HUKThnFyfErXE4Reqf3G0ERkiKGvesZJBLHVSbdbtfGPckXr2cUFHA0+JIs3Rh+Vo
+TE2I1yZGE7Meu4exZfz4doCdbIjUz/8a6QkCRRwFSGswiFvS1zvgq3dnF0b5eaasnZnY2KnL
+cZegFpLwlOiScQiDsUSDAs20FLnVaAM+7PFfEhnA9lcGX5zbJSMvczxOp6mLcdsaaWPefrMj
+BIfIV57FO9u6poFASytQwuIbLFVj7Qj6SP3vwWSRetm1aP9GSrpN+Cm7LOoHmD0AUM0jTt4D
+qkJUc5/QvyUjsP7Bi+tV+Y/EpzzB7Twk88Y/ileSZpe1F1D/WJpeRjOd1ggfquHuDZWB
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."SDO_SIMPLE_FILTER" wrapped
+a000000
+1
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+8
+443 237
+Yfq3g7QszQ5H1xg6ajnBtHdLfQowg5AJLiCsZy/NWA9/eMoNb2ucb3mswgYbwiHZJeMf4Gbo
+FJ45pbW/OsIM5gtivb2CTjCCIItiHcJwtO9pigNNWtzBC3ak8QuIwRjWeh/PBW3lKNsRV+G9
+uUJxWVGyyN2Q73vhsYPkov62AgBRpbWiBRzMHybT6VYONiJiRVSTw1v9f6I6KLQXMPu0wZDj
+8EzdRqhbzF7s71u2QZUMaewBOE8DO7HFMI78R1OjT4B5WVZA5PZMRGHmGhztzcWWOw3QkbfB
+Ly2tYzENEhOvjfo47lsjQRHsyfI0GTPiOLtw59ji8BakXpn4FsDN41scXJGxp4DKTv7e4H2W
+ZLHHlweK8YSnaj7ZCxadnz53WBDAGOtm+iXhnzTIyWyOnE6t2dkwlgqL8DqVKeiCUEYIeziS
+pj9wIJeiQ5IntcMKebAcNiIrd8VZ/btVZx6keTCZtIyytZ+d3K5inyuQxgaUYy1wQzbQDUje
+mw2IlTRQQ8SVBJCsOw5wVNaz60uUMQfD4yKOjjJnYNaextWLanj8/ORi
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."SDO_VERSION" wrapped
+a000000
+1
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+8
+6e 9a
+bmi3aLJbw0LxjRLRuATTL2hLqfUwg+lHmLKpfHTpzPxZ7r0WESZuXfunrNZurhNzxKnhor/s
+EsToa/IrxX/Qy9XQpIgngmP/b8thAmbFio6NCWxQldQ+qLIW+DYGBnqfOpi7Kp1QNHsRcbD9
+nL6kBg==
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."SPCLUSTERS" wrapped
+a000000
+1
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+8
+12c 10f
+WEuM1AA1EdlKHUqEKrU4krIAK4owgzLQ2iDhNXRGJk7VcRvT5qynl4qS3SXiu12AicO6Yww3
+MOS1VrA2vfRTdnIXcnSo+kKOSwuSvEGWD7BOCobiyHBsMIAuW3fX0yVUHI0fMN+UJKPFONwn
+ysy/GgwwSKRqmZp+Vp3chSFwjgeBJLHBcLblTna+1qpSuU2iPiCQK5tpN+zN6yunxuigu1/3
+/mxALFeEnlzTIDhzv5xJQU1LaUB8pwAEPL4MhnsqmtE/prQjWvI=
+/
+
+CREATE OR REPLACE NONEDITIONABLE FUNCTION "MDSYS"."TBLCONTAINSADT" wrapped
+a000000
+1
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+8
+183 11f
+WYKP5gON8yWuvJ3sO/A95LeIySowg43QACisfC9AkHOUsrYU3OLcgCaDGnHXUs5/KhZt9LOv
++bUwxaIU0Z8nmjMQI3LCYNc8jAaG6ZriLa0Pu1DUd7tQyMJNYWcjsiFPLj1Pbai/G8qJyYX6
+RoRA9uYCMlgkJCYUZRLfRo+R+CcUCDC9sEgOUKB/9/0Xx+F7Fq7pk0bsTMhdMRmTh9XN90Tv
+xrLIfDZUY0xX7Pl5wQ07dVbiyeWxYtg5MyEjInyI9bzkPx/as3IyT+eLeU9iGygRfUwq
+/
+
+
+ALTER FUNCTION "MDSYS"."SDO_VERSION"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:21:09'
+/
+
+
+ALTER FUNCTION "MDSYS"."SDO_OWM_INSTALLED"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:21:09'
+/
+
+
+ALTER FUNCTION "MDSYS"."GET_TOPO_GEOMETRY_LAYER_TABLE"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:14:16'
+/
+
+
+ALTER FUNCTION "MDSYS"."GET_TOPO_GEOMETRY_LAYER_ARRAY"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:14:16'
+/
+
+
+ALTER FUNCTION "MDSYS"."SDO_CONSTRUCT_DIM_ARRAY"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:14:21'
+/
+
+
+ALTER FUNCTION "MDSYS"."RTREEJOINFUNC"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:03'
+/
+
+
+ALTER FUNCTION "MDSYS"."HHNDIM"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:03'
+/
+
+
+ALTER FUNCTION "MDSYS"."HHLENGTH"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:03'
+/
+
+
+ALTER FUNCTION "MDSYS"."HHBYTELEN"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:03'
+/
+
+
+ALTER FUNCTION "MDSYS"."HHPRECISION"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:03'
+/
+
+
+ALTER FUNCTION "MDSYS"."HHLEVELS"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:03'
+/
+
+
+ALTER FUNCTION "MDSYS"."HHENCODE"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:03'
+/
+
+
+ALTER FUNCTION "MDSYS"."HHDECODE"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:03'
+/
+
+
+ALTER FUNCTION "MDSYS"."HHCELLBNDRY"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:03'
+/
+
+
+ALTER FUNCTION "MDSYS"."HHCELLSIZE"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:03'
+/
+
+
+ALTER FUNCTION "MDSYS"."HHSUBSTR"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:03'
+/
+
+
+ALTER FUNCTION "MDSYS"."HHCOLLAPSE"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:03'
+/
+
+
+ALTER FUNCTION "MDSYS"."HHCOMPOSE"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:03'
+/
+
+
+ALTER FUNCTION "MDSYS"."HHCOMMONCODE"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:03'
+/
+
+
+ALTER FUNCTION "MDSYS"."HHMATCH"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:03'
+/
+
+
+ALTER FUNCTION "MDSYS"."HHDISTANCE"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:03'
+/
+
+
+ALTER FUNCTION "MDSYS"."HHORDER"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:03'
+/
+
+
+ALTER FUNCTION "MDSYS"."HHGROUP"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:03'
+/
+
+
+ALTER FUNCTION "MDSYS"."HHJLDATE"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:03'
+/
+
+
+ALTER FUNCTION "MDSYS"."HHCLDATE"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:03'
+/
+
+
+ALTER FUNCTION "MDSYS"."HHIDPART"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:03'
+/
+
+
+ALTER FUNCTION "MDSYS"."HHIDLPART"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:03'
+/
+
+
+ALTER FUNCTION "MDSYS"."HHCOMPARE"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:03'
+/
+
+
+ALTER FUNCTION "MDSYS"."HHNCOMPARE"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:03'
+/
+
+
+ALTER FUNCTION "MDSYS"."HHSUBDIVIDE"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:03'
+/
+
+
+ALTER FUNCTION "MDSYS"."HHSTBIT"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:03'
+/
+
+
+ALTER FUNCTION "MDSYS"."HHGTBIT"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:03'
+/
+
+
+ALTER FUNCTION "MDSYS"."HHSTYPE"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:03'
+/
+
+
+ALTER FUNCTION "MDSYS"."HHGTYPE"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:03'
+/
+
+
+ALTER FUNCTION "MDSYS"."HHCBIT"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:03'
+/
+
+
+ALTER FUNCTION "MDSYS"."HHSBIT"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:03'
+/
+
+
+ALTER FUNCTION "MDSYS"."HHGBIT"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:03'
+/
+
+
+ALTER FUNCTION "MDSYS"."HHINCRLEV"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:03'
+/
+
+
+ALTER FUNCTION "MDSYS"."HHGETCID"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:03'
+/
+
+
+ALTER FUNCTION "MDSYS"."HHSETCID"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:04'
+/
+
+
+ALTER FUNCTION "MDSYS"."HHAND"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:04'
+/
+
+
+ALTER FUNCTION "MDSYS"."HHOR"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:04'
+/
+
+
+ALTER FUNCTION "MDSYS"."HHXOR"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:04'
+/
+
+
+ALTER FUNCTION "MDSYS"."HHENCODE_BYLEVEL"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:04'
+/
+
+
+ALTER FUNCTION "MDSYS"."HHMAXCODE"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:04'
+/
+
+
+ALTER FUNCTION "MDSYS"."SDO_JOIN"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:05'
+/
+
+
+ALTER FUNCTION "MDSYS"."OGC_POLYGONFROMTEXT"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:06'
+/
+
+
+ALTER FUNCTION "MDSYS"."OGC_LINESTRINGFROMTEXT"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:06'
+/
+
+
+ALTER FUNCTION "MDSYS"."OGC_MULTIPOLYGONFROMTEXT"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:06'
+/
+
+
+ALTER FUNCTION "MDSYS"."OGC_MULTILINESTRINGFROMTEXT"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:06'
+/
+
+
+ALTER FUNCTION "MDSYS"."OGC_POINTFROMTEXT"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:06'
+/
+
+
+ALTER FUNCTION "MDSYS"."OGC_POLYGONFROMWKB"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:06'
+/
+
+
+ALTER FUNCTION "MDSYS"."OGC_LINESTRINGFROMWKB"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:06'
+/
+
+
+ALTER FUNCTION "MDSYS"."OGC_MULTIPOLYGONFROMWKB"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:06'
+/
+
+
+ALTER FUNCTION "MDSYS"."OGC_MULTILINESTRINGFROMWKB"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:06'
+/
+
+
+ALTER FUNCTION "MDSYS"."OGC_POINTFROMWKB"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:06'
+/
+
+
+ALTER FUNCTION "MDSYS"."OGC_DIMENSION"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:06'
+/
+
+
+ALTER FUNCTION "MDSYS"."OGC_ASTEXT"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:06'
+/
+
+
+ALTER FUNCTION "MDSYS"."OGC_ASBINARY"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:06'
+/
+
+
+ALTER FUNCTION "MDSYS"."OGC_SRID"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:06'
+/
+
+
+ALTER FUNCTION "MDSYS"."OGC_X"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:06'
+/
+
+
+ALTER FUNCTION "MDSYS"."OGC_Y"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:06'
+/
+
+
+ALTER FUNCTION "MDSYS"."OGC_NUMINTERIORRINGS"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:06'
+/
+
+
+ALTER FUNCTION "MDSYS"."OGC_INTERIORRINGN"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:06'
+/
+
+
+ALTER FUNCTION "MDSYS"."OGC_EXTERIORRING"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:06'
+/
+
+
+ALTER FUNCTION "MDSYS"."OGC_NUMGEOMETRIES"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:06'
+/
+
+
+ALTER FUNCTION "MDSYS"."OGC_GEOMETRYN"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:06'
+/
+
+
+ALTER FUNCTION "MDSYS"."OGC_DISJOINT"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:06'
+/
+
+
+ALTER FUNCTION "MDSYS"."OGC_TOUCH"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:06'
+/
+
+
+ALTER FUNCTION "MDSYS"."OGC_WITHIN"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:06'
+/
+
+
+ALTER FUNCTION "MDSYS"."OGC_OVERLAP"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:06'
+/
+
+
+ALTER FUNCTION "MDSYS"."OGC_CONTAINS"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:06'
+/
+
+
+ALTER FUNCTION "MDSYS"."OGC_INTERSECTION"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:06'
+/
+
+
+ALTER FUNCTION "MDSYS"."OGC_DIFFERENCE"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:06'
+/
+
+
+ALTER FUNCTION "MDSYS"."OGC_UNION"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:06'
+/
+
+
+ALTER FUNCTION "MDSYS"."OGC_CONVEXHULL"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:06'
+/
+
+
+ALTER FUNCTION "MDSYS"."OGC_CENTROID"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:06'
+/
+
+
+ALTER FUNCTION "MDSYS"."OGC_GEOMETRYTYPE"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:06'
+/
+
+
+ALTER FUNCTION "MDSYS"."OGC_STARTPOINT"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:06'
+/
+
+
+ALTER FUNCTION "MDSYS"."OGC_ENDPOINT"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:06'
+/
+
+
+ALTER FUNCTION "MDSYS"."OGC_BOUNDARY"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:06'
+/
+
+
+ALTER FUNCTION "MDSYS"."OGC_ENVELOPE"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:06'
+/
+
+
+ALTER FUNCTION "MDSYS"."OGC_ISEMPTY"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:06'
+/
+
+
+ALTER FUNCTION "MDSYS"."OGC_NUMPOINTS"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:06'
+/
+
+
+ALTER FUNCTION "MDSYS"."OGC_POINTN"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:06'
+/
+
+
+ALTER FUNCTION "MDSYS"."OGC_ISCLOSED"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:06'
+/
+
+
+ALTER FUNCTION "MDSYS"."OGC_POINTONSURFACE"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:06'
+/
+
+
+ALTER FUNCTION "MDSYS"."OGC_AREA"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:06'
+/
+
+
+ALTER FUNCTION "MDSYS"."OGC_BUFFER"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:06'
+/
+
+
+ALTER FUNCTION "MDSYS"."OGC_EQUALS"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:06'
+/
+
+
+ALTER FUNCTION "MDSYS"."OGC_SYMMETRICDIFFERENCE"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:06'
+/
+
+
+ALTER FUNCTION "MDSYS"."OGC_DISTANCE"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:06'
+/
+
+
+ALTER FUNCTION "MDSYS"."OGC_LENGTH"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:06'
+/
+
+
+ALTER FUNCTION "MDSYS"."OGC_ISSIMPLE"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:06'
+/
+
+
+ALTER FUNCTION "MDSYS"."OGC_ISRING"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:06'
+/
+
+
+ALTER FUNCTION "MDSYS"."OGC_INTERSECTS"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:06'
+/
+
+
+ALTER FUNCTION "MDSYS"."OGC_RELATE"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:06'
+/
+
+
+ALTER FUNCTION "MDSYS"."OGC_CROSS"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:06'
+/
+
+
+ALTER FUNCTION "MDSYS"."SDO_AGGR_UNION"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:08'
+/
+
+
+ALTER FUNCTION "MDSYS"."SDO_AGGR_MBR"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:08'
+/
+
+
+ALTER FUNCTION "MDSYS"."SDO_AGGR_LRS_CONCAT"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:08'
+/
+
+
+ALTER FUNCTION "MDSYS"."SDO_AGGR_LRS_CONCAT_3D"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:08'
+/
+
+
+ALTER FUNCTION "MDSYS"."SDO_AGGR_CONVEXHULL"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:08'
+/
+
+
+ALTER FUNCTION "MDSYS"."SDO_AGGR_CENTROID"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:08'
+/
+
+
+ALTER FUNCTION "MDSYS"."SDO_AGGR_CONCAT_LINES"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:08'
+/
+
+
+ALTER FUNCTION "MDSYS"."SDO_AGGR_SET_UNION"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:22:08'
+/
+
+
+ALTER FUNCTION "MDSYS"."SDO_SIMPLE_FILTER"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:23:57'
+/
+
+
+ALTER FUNCTION "MDSYS"."SDO_GET_ITYP_NAME"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:23:57'
+/
+
+
+ALTER FUNCTION "MDSYS"."SDO_GET_TAB_PART"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:23:57'
+/
+
+
+ALTER FUNCTION "MDSYS"."QRY2OPT"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:23:58'
+/
+
+
+ALTER FUNCTION "MDSYS"."SDO_PQRY"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:23:58'
+/
+
+
+ALTER FUNCTION "MDSYS"."TBLCONTAINSADT"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:24:08'
+/
+
+
+ALTER FUNCTION "MDSYS"."GETMDSYSEVENT"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:24:08'
+/
+
+
+ALTER FUNCTION "MDSYS"."ELOCATION_EDGE_LINK_LEVEL"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:24:12'
+/
+
+
+ALTER FUNCTION "MDSYS"."SPCLUSTERS"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:24:54'
+/
+
+
+ALTER FUNCTION "MDSYS"."SDO_POINTINPOLYGON"
+  COMPILE
+    PLSQL_OPTIMIZE_LEVEL=  2
+    PLSQL_CODE_TYPE=  INTERPRETED
+    PLSQL_DEBUG=  FALSE    PLSCOPE_SETTINGS=  'IDENTIFIERS:NONE'
+
+ REUSE SETTINGS TIMESTAMP '2014-07-07 06:25:03'
+/
+
