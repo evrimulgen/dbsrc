@@ -1,0 +1,1 @@
+COMMENT ON COLUMN "DBSRC_U"."DBSRC_CFG_DBSCRIPT"."ORDER_NO" IS 'Order Number: part of primary key. Unique within a configuration name. The order in which the ddl_type is will be rendered in an explicitly ordered dbscript.';

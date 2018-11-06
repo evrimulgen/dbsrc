@@ -1,0 +1,1 @@
+COMMENT ON COLUMN "DBSRC_U"."DBSRC_CFG_POST_PRCS"."ORDER_NO" IS 'Order Number: part of primary key. Unique within a configuration name. The order in which the post-processing sql should be applied when creating a database script.';

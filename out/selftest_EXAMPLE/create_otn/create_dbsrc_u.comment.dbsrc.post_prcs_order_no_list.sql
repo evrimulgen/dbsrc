@@ -1,0 +1,1 @@
+COMMENT ON COLUMN "DBSRC_U"."DBSRC"."POST_PRCS_ORDER_NO_LIST" IS 'Post-process Order Number List: a series of zero to many numbers, delimited by colons; ex '':1::2:''. Indicates which post-processing steps were applied to this ddl.';

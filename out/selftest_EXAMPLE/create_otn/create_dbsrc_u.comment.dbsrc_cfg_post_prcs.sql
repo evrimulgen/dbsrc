@@ -1,0 +1,1 @@
+COMMENT ON TABLE "DBSRC_U"."DBSRC_CFG_POST_PRCS"  IS 'Database Source Configuration Post-Processing: custom post-processing applied using sql to dbms_metadata output to create a database script. This post-processing is intended for handling filtering and transformations not currently possible with dbms_metadata filters and transforms.';

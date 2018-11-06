@@ -1,0 +1,1 @@
+GRANT "RESOURCE" TO "BI";
