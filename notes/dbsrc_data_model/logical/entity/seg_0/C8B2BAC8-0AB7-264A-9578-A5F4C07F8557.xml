@@ -1,0 +1,221 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="C8B2BAC8-0AB7-264A-9578-A5F4C07F8557" name="Database Source">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:42:51 UTC</createdTime>
+<generatorID>39C3EE74-F7C9-F6E7-7F19-FAD323686502</generatorID>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<engineerTo>
+<item key="8C51DAA3-DB7B-20CC-2D51-CB9DCACC2C5F" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="Database Source Set Number" id="2F991FAB-6467-475A-89DB-B93D18188A68">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:42:51 UTC</createdTime>
+<generatorID>2BE07380-1DB5-F56A-9656-094523FB395C</generatorID>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<engineerTo>
+<item key="8C51DAA3-DB7B-20CC-2D51-CB9DCACC2C5F" value="true"/>
+</engineerTo>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>E525FFE2-4AD6-E168-25DA-58C0805D5E2B</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="cfg name" id="E291EEFF-8624-986A-DDDE-E2B6EB10C4B3">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:42:51 UTC</createdTime>
+<generatorID>30AABCD3-4D8D-14C4-A35F-52637A883DE3</generatorID>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<engineerTo>
+<item key="8C51DAA3-DB7B-20CC-2D51-CB9DCACC2C5F" value="true"/>
+</engineerTo>
+<referedAttribute>5D14FE8B-3FFB-62E6-9151-05D7C7939FDE</referedAttribute>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>3BB55F49-CEC0-B4D4-A38C-1889E8C11B14</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Order Number" id="A3C529D9-9EBE-3155-6D87-32BC9659DE07">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:42:51 UTC</createdTime>
+<generatorID>023E139A-D944-D720-62A2-56F897ECF4CE</generatorID>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<engineerTo>
+<item key="8C51DAA3-DB7B-20CC-2D51-CB9DCACC2C5F" value="true"/>
+</engineerTo>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>E525FFE2-4AD6-E168-25DA-58C0805D5E2B</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Object Owner" id="A0B4F55F-EB6B-533F-AB09-502A2F18BE24">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:42:51 UTC</createdTime>
+<generatorID>415D2D68-1017-CF08-3874-325ADDDF0078</generatorID>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<engineerTo>
+<item key="8C51DAA3-DB7B-20CC-2D51-CB9DCACC2C5F" value="true"/>
+</engineerTo>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>2DE79570-78F2-66FF-9293-FB909AC61141</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="ddl type" id="45347F6B-1E31-8306-C757-872C3A70027A">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:42:51 UTC</createdTime>
+<generatorID>30AABCD3-4D8D-14C4-A35F-52637A883DE3</generatorID>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<engineerTo>
+<item key="8C51DAA3-DB7B-20CC-2D51-CB9DCACC2C5F" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<referedAttribute>EE0B4CF2-E0B6-0BF2-6619-7D91B7E9D940</referedAttribute>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>3BB55F49-CEC0-B4D4-A38C-1889E8C11B14</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Object Name" id="AF4A9DC4-A42A-F350-5A98-18AA62810886">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:42:51 UTC</createdTime>
+<generatorID>569E4846-E2FC-6690-F609-ED5AB87A51A9</generatorID>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<engineerTo>
+<item key="8C51DAA3-DB7B-20CC-2D51-CB9DCACC2C5F" value="true"/>
+</engineerTo>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>2DE79570-78F2-66FF-9293-FB909AC61141</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Database Source Text (Raw)" id="AEA40F73-8942-B0EA-AC15-F679B86558C3">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:42:51 UTC</createdTime>
+<generatorID>D525FEA4-D469-0E70-2C1A-C447E76EE4F8</generatorID>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<engineerTo>
+<item key="8C51DAA3-DB7B-20CC-2D51-CB9DCACC2C5F" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT028</logicalDatatype>
+<domain>4C1A2F85-5DE4-D708-17D0-76BF65FB626B</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Database Source Text (Cooked)" id="4818E884-D796-94A6-D477-41555C0C5F48">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:42:51 UTC</createdTime>
+<generatorID>CE16123A-D5E1-BFA5-6DE9-D0DB1B3CB204</generatorID>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<engineerTo>
+<item key="8C51DAA3-DB7B-20CC-2D51-CB9DCACC2C5F" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT028</logicalDatatype>
+<domain>4C1A2F85-5DE4-D708-17D0-76BF65FB626B</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Database Script Include Flag" id="4ADC0645-5AE6-C663-2CDE-CA97673A690F">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:42:51 UTC</createdTime>
+<generatorID>481E3198-C86C-5935-BA4C-3E2A2C82CA97</generatorID>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<engineerTo>
+<item key="8C51DAA3-DB7B-20CC-2D51-CB9DCACC2C5F" value="true"/>
+</engineerTo>
+<constraintName>ck_dbsrc_01</constraintName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>8121DA18-3928-8634-C394-53DEC6F9D3E9</domain>
+<listOfValues>
+<valueDef value="N" description=""/>
+<valueDef value="Y" description=""/>
+</listOfValues>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Post-Process Order Number List" id="44C3F690-367F-A3AF-BC1B-3831B2F2E73B">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:42:51 UTC</createdTime>
+<generatorID>4624F319-8D58-E7AC-49FA-5CBAE1C0B96A</generatorID>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<engineerTo>
+<item key="8C51DAA3-DB7B-20CC-2D51-CB9DCACC2C5F" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>38F8104A-6C5B-A30E-50B9-8B0482D0C144</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="DBA Object Created Date" id="A281BEC3-0013-C83E-663D-813EFAD46DE0">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:42:51 UTC</createdTime>
+<generatorID>430E60EE-CFC8-328F-03DB-08464F150C0F</generatorID>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<engineerTo>
+<item key="8C51DAA3-DB7B-20CC-2D51-CB9DCACC2C5F" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<domain>9B7BAE15-558E-2B08-4928-3EBE36472A02</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="DBA Object Last DDL Time" id="09542169-AC73-7DF6-1B31-017134ADD256">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:42:51 UTC</createdTime>
+<generatorID>A126EFC6-846B-9488-9863-E8BBBDE9C2E4</generatorID>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<engineerTo>
+<item key="8C51DAA3-DB7B-20CC-2D51-CB9DCACC2C5F" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<domain>9B7BAE15-558E-2B08-4928-3EBE36472A02</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="DBA Object Status" id="33AD4A03-E034-CAC4-B8DF-274F16A5648A">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:42:51 UTC</createdTime>
+<generatorID>1FFC0B51-5C9E-76C7-E8FB-FB4E1FAD572B</generatorID>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<engineerTo>
+<item key="8C51DAA3-DB7B-20CC-2D51-CB9DCACC2C5F" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>7A958C7B-8D76-422E-6C60-52BD96C7E72E</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="31D11E32-1317-59C3-89F8-BE635DEEC2E1" name="pk dbsrc">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:42:51 UTC</createdTime>
+<generatorID>DE3D20F2-95E6-C911-65A3-E7C927EAFEF8</generatorID>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<engineerTo>
+<item key="8C51DAA3-DB7B-20CC-2D51-CB9DCACC2C5F" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>2F991FAB-6467-475A-89DB-B93D18188A68</attributeRef>
+<attributeRef>E291EEFF-8624-986A-DDDE-E2B6EB10C4B3</attributeRef>
+<attributeRef>A3C529D9-9EBE-3155-6D87-32BC9659DE07</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

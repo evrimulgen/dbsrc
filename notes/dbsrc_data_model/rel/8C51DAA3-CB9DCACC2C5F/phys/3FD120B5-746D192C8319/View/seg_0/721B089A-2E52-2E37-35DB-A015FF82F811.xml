@@ -1,0 +1,7 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableViewProxyOraclev10g class="oracle.dbtools.crest.model.design.storage.oracle.v10g.TableViewProxyOraclev10g" name="crnt_dbsrc" directorySegmentName="seg_0" id="721B089A-2E52-2E37-35DB-A015FF82F811">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:33:55 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<force>YES</force>
+</TableViewProxyOraclev10g>

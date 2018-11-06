@@ -1,0 +1,89 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="CC1580C1-1607-B0E5-7E26-88F89020B745" name="Database Source Configuration Post Process">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:42:51 UTC</createdTime>
+<generatorID>9481849B-3228-BA61-F43F-2A537B3417E4</generatorID>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<engineerTo>
+<item key="8C51DAA3-DB7B-20CC-2D51-CB9DCACC2C5F" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="cfg name" id="0F51E0F4-8E4E-0415-393F-9D7445E5789F">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:42:51 UTC</createdTime>
+<generatorID>1B5D7B36-0F00-7CB8-630A-5B805A6C2B74</generatorID>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<engineerTo>
+<item key="8C51DAA3-DB7B-20CC-2D51-CB9DCACC2C5F" value="true"/>
+</engineerTo>
+<referedAttribute>4D3CAB96-4789-BB04-1793-C9673A0034F3</referedAttribute>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>3BB55F49-CEC0-B4D4-A38C-1889E8C11B14</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Order Number" id="44607A3B-AB4E-9717-09DF-B67899245055">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:42:51 UTC</createdTime>
+<generatorID>133E2028-59E6-9C42-964F-56692D460912</generatorID>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<engineerTo>
+<item key="8C51DAA3-DB7B-20CC-2D51-CB9DCACC2C5F" value="true"/>
+</engineerTo>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>E525FFE2-4AD6-E168-25DA-58C0805D5E2B</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Post Process SQL Text" id="8A21F954-9D6B-C232-AB99-DD6FE57E116E">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:42:51 UTC</createdTime>
+<generatorID>6A852E26-EB1D-B90B-399B-8AE38709CB40</generatorID>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<engineerTo>
+<item key="8C51DAA3-DB7B-20CC-2D51-CB9DCACC2C5F" value="true"/>
+</engineerTo>
+<use>0</use>
+<logicalDatatype>LOGDT028</logicalDatatype>
+<domain>4C1A2F85-5DE4-D708-17D0-76BF65FB626B</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Comment Text" id="74310C76-0FA3-421A-AB15-EEA96E4043F9">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:42:51 UTC</createdTime>
+<generatorID>26B6196F-D097-147E-3ACA-E46A6AA0CE9F</generatorID>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<engineerTo>
+<item key="8C51DAA3-DB7B-20CC-2D51-CB9DCACC2C5F" value="true"/>
+</engineerTo>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>1C1918EF-B5E6-7DBC-6C07-6EDD47A3E509</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="CC771490-0085-70EC-73AA-98EC647477C4" name="pk dbsrc cfg post prcs 01">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:42:51 UTC</createdTime>
+<generatorID>645F87A3-B772-D937-9D43-9537C04F8EBD</generatorID>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<engineerTo>
+<item key="8C51DAA3-DB7B-20CC-2D51-CB9DCACC2C5F" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>0F51E0F4-8E4E-0415-393F-9D7445E5789F</attributeRef>
+<attributeRef>44607A3B-AB4E-9717-09DF-B67899245055</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

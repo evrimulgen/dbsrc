@@ -1,0 +1,190 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableProxyOraclev12c class="oracle.dbtools.crest.model.design.storage.oracle.v12c.TableProxyOraclev12c" name="dbsrc" directorySegmentName="seg_0" id="39C3EE74-F7C9-F6E7-7F19-FAD323686502">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:33:55 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<logging>YES</logging>
+<partitionList class="oracle.dbtools.crest.model.design.storage.oracle.v11g.PartitionListOraclev11g" name="PL1" id="282F3584-1ACA-6C04-47CB-178E59D3AEDF">
+<sourceDDLFile>01_install.sql</sourceDDLFile>
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:33:55 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<columnIDs>2BE07380-1DB5-F56A-9656-094523FB395C</columnIDs>
+<intervalExpression>1</intervalExpression>
+</partitionList>
+<partitioned>YES</partitioned>
+<partitionedRowMovement>DISABLE</partitionedRowMovement>
+<tableSpace>7F38C331-8115-7466-05DC-31B1A60B1DCB</tableSpace>
+<temporaryChanged>false</temporaryChanged>
+<accessDriverType>oracle_loader</accessDriverType>
+<rejectLimit></rejectLimit>
+<columnProxies itemClass="oracle.dbtools.crest.model.design.storage.oracle.v12c.ColumnProxyOraclev12c">
+<ColumnProxy name="order_no" id="023E139A-D944-D720-62A2-56F897ECF4CE">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:33:55 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="create_date" id="1BDB1A6E-1841-C25C-B93E-D8E5693BC399">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:33:55 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<defaultValue>sysdate</defaultValue>
+</ColumnProxy>
+<ColumnProxy name="dba_obj_status" id="1FFC0B51-5C9E-76C7-E8FB-FB4E1FAD572B">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:33:55 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="dbsrc_set_no" id="2BE07380-1DB5-F56A-9656-094523FB395C">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:33:55 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="cfg_name" id="40964BB9-317B-6061-C481-DF23B6A64EB0">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:33:55 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="object_owner" id="415D2D68-1017-CF08-3874-325ADDDF0078">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:33:55 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="dba_obj_created_date" id="430E60EE-CFC8-328F-03DB-08464F150C0F">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:33:55 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="post_prcs_order_no_list" id="4624F319-8D58-E7AC-49FA-5CBAE1C0B96A">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:33:55 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="dbscript_include_flag" id="481E3198-C86C-5935-BA4C-3E2A2C82CA97">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:33:55 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<defaultValue>&apos;Y&apos;</defaultValue>
+</ColumnProxy>
+<ColumnProxy name="object_name" id="569E4846-E2FC-6690-F609-ED5AB87A51A9">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:33:55 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="create_process" id="7F6617DD-7424-1F36-4E70-0DDA5BE4C632">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:33:55 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<defaultValue>sys_context(&apos;userenv&apos;, &apos;os_user&apos;) ||&apos;@&apos;|| sys_context(&apos;userenv&apos;, &apos;host&apos;)||&apos;/&apos;|| sys_context(&apos;userenv&apos;, &apos;module&apos;)||&apos;:&apos;|| sys_context(&apos;userenv&apos;, &apos;action&apos;)||&apos;@&apos;|| sys_context(&apos;userenv&apos;, &apos;db_name&apos;)</defaultValue>
+</ColumnProxy>
+<ColumnProxy name="create_user" id="7FCFDD72-25AD-683D-AD63-785971D3EA54">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:33:55 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<defaultValue>user</defaultValue>
+</ColumnProxy>
+<ColumnProxy name="ddl_type" id="838E8F6A-D277-D725-460F-7EBB88DF58CA">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:33:55 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="dba_obj_last_ddl_time" id="A126EFC6-846B-9488-9863-E8BBBDE9C2E4">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:33:55 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="dbsrc_text_cooked" id="CE16123A-D5E1-BFA5-6DE9-D0DB1B3CB204">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:33:55 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="dbsrc_text_raw" id="D525FEA4-D469-0E70-2C1A-C447E76EE4F8">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:33:55 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+</ColumnProxy>
+</columnProxies>
+<indexProxies>
+<IndexProxy class="oracle.dbtools.crest.model.design.storage.oracle.v10g.IndexProxyOraclev10g" name="x_dbsrc_04" id="25EC55FC-A389-23DA-C966-05A8A7E752A9">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:33:55 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<indexPartitioned>LOCAL</indexPartitioned>
+<logging></logging>
+<tableSpace>7F38C331-8115-7466-05DC-31B1A60B1DCB</tableSpace>
+</IndexProxy>
+<IndexProxy class="oracle.dbtools.crest.model.design.storage.oracle.v10g.IndexProxyOraclev10g" name="x_dbsrc_02" id="88C4E63A-46A1-9D7C-9EB8-25E4A3EAA922">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:33:55 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<indexPartitioned>LOCAL</indexPartitioned>
+<logging></logging>
+<tableSpace>7F38C331-8115-7466-05DC-31B1A60B1DCB</tableSpace>
+</IndexProxy>
+<IndexProxy class="oracle.dbtools.crest.model.design.storage.oracle.v10g.IndexProxyOraclev10g" name="x_dbsrc_03" id="E08A6088-6D31-5918-891B-BAA308630B1E">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:33:55 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<indexPartitioned>LOCAL</indexPartitioned>
+<logging></logging>
+<tableSpace>7F38C331-8115-7466-05DC-31B1A60B1DCB</tableSpace>
+</IndexProxy>
+<IndexProxy class="oracle.dbtools.crest.model.design.storage.oracle.v10g.IndexProxyOraclev10g" name="x_dbsrc_01" id="E4494A75-C2DB-365C-C230-D5069B522141">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:33:55 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<indexPartitioned>LOCAL</indexPartitioned>
+<logging></logging>
+<tableSpace>7F38C331-8115-7466-05DC-31B1A60B1DCB</tableSpace>
+</IndexProxy>
+</indexProxies>
+<foreignKeys>
+<ForeignKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.FKProxyOraclev10g" name="fk_dbsrc_01" id="72FD54D3-C6DE-7558-9400-274082E4014C">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:33:55 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+</ForeignKey>
+</foreignKeys>
+<lobStorages>
+<LobStorage class="oracle.dbtools.crest.model.design.storage.oracle.v11g.LobStorageOraclev11g" name="LS1" id="56D1E281-3BDA-DFB6-E2E5-C897CB25DC38">
+<sourceDDLFile>01_install.sql</sourceDDLFile>
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:33:55 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<cache>NOCACHE</cache>
+<column>dbsrc_text_raw</column>
+<compression>YES</compression>
+<compressionType>MEDIUM</compressionType>
+<lobStorageType>SECUREFILE</lobStorageType>
+</LobStorage>
+<LobStorage class="oracle.dbtools.crest.model.design.storage.oracle.v11g.LobStorageOraclev11g" name="LS2" id="E835E0D9-3E14-A1EA-F116-351176131948">
+<sourceDDLFile>01_install.sql</sourceDDLFile>
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:33:55 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<cache>NOCACHE</cache>
+<column>dbsrc_text_cooked</column>
+<compression>YES</compression>
+<compressionType>MEDIUM</compressionType>
+<lobStorageType>SECUREFILE</lobStorageType>
+</LobStorage>
+</lobStorages>
+<partitions>
+<Partition class="oracle.dbtools.crest.model.design.storage.oracle.v11g.PartitionOraclev11g" name="p_first" id="62D9B8EF-4465-D7E9-C54A-FFB0F2C45AB4">
+<sourceDDLFile>01_install.sql</sourceDDLFile>
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:33:55 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<position>1</position>
+<valueList>1000</valueList>
+</Partition>
+</partitions>
+<primaryKeys>
+<PrimaryKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.PKProxyOraclev10g" name="pk_dbsrc" id="DE3D20F2-95E6-C911-65A3-E7C927EAFEF8">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:33:55 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<indexSort>SORTED</indexSort>
+</PrimaryKey>
+</primaryKeys>
+</TableProxyOraclev12c>

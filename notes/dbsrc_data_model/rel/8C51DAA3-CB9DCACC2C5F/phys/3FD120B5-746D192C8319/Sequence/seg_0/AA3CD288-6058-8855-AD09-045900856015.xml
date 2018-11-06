@@ -1,0 +1,10 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<SequenceOraclev10g class="oracle.dbtools.crest.model.design.storage.oracle.v10g.SequenceOraclev10g" name="sq_dbsrc_set_no" directorySegmentName="seg_0" id="AA3CD288-6058-8855-AD09-045900856015">
+<sourceDDLFile>01_install.sql</sourceDDLFile>
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:33:55 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<cache>30</cache>
+<incrementBy>1</incrementBy>
+<startWith>1000</startWith>
+</SequenceOraclev10g>

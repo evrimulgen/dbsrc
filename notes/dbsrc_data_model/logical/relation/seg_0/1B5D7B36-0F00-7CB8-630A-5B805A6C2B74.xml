@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="fk_dbsrc_cfg_post_prcs_01" directorySegmentName="seg_0" id="1B5D7B36-0F00-7CB8-630A-5B805A6C2B74">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:42:51 UTC</createdTime>
+<generatorID>1E2E5526-044B-2253-932A-E9E13F523BC2</generatorID>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<engineerTo>
+<item key="8C51DAA3-DB7B-20CC-2D51-CB9DCACC2C5F" value="true"/>
+</engineerTo>
+<sourcePk>5A42BABF-2C6D-56DA-3553-8D7E5BDBC99B</sourcePk>
+<identifying>true</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>CC3E70F7-DFCC-DADE-3291-5AA4284AD067</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>CC1580C1-1607-B0E5-7E26-88F89020B745</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

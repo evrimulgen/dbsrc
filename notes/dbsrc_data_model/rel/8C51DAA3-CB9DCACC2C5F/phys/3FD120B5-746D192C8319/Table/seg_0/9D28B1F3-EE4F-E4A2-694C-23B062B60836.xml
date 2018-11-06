@@ -1,0 +1,49 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableProxyOraclev12c class="oracle.dbtools.crest.model.design.storage.oracle.v12c.TableProxyOraclev12c" name="dbsrc_cfg" directorySegmentName="seg_0" id="9D28B1F3-EE4F-E4A2-694C-23B062B60836">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:33:55 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<logging>YES</logging>
+<partitionedRowMovement>DISABLE</partitionedRowMovement>
+<temporaryChanged>false</temporaryChanged>
+<accessDriverType>oracle_loader</accessDriverType>
+<rejectLimit></rejectLimit>
+<columnProxies itemClass="oracle.dbtools.crest.model.design.storage.oracle.v12c.ColumnProxyOraclev12c">
+<ColumnProxy name="create_process" id="22C14496-D038-B5E6-8F00-C8944AA68F2A">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:33:55 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<defaultValue>sys_context(&apos;userenv&apos;, &apos;os_user&apos;) ||&apos;@&apos;|| sys_context(&apos;userenv&apos;, &apos;host&apos;)||&apos;/&apos;|| sys_context(&apos;userenv&apos;, &apos;module&apos;)||&apos;:&apos;|| sys_context(&apos;userenv&apos;, &apos;action&apos;)||&apos;@&apos;|| sys_context(&apos;userenv&apos;, &apos;db_name&apos;)</defaultValue>
+</ColumnProxy>
+<ColumnProxy name="cfg_desc" id="326D6C31-BEEE-2AA9-8869-B4BEF24FA476">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:33:55 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="create_user" id="5EF15117-1DE4-F1F9-998A-894601C035BF">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:33:55 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<defaultValue>user</defaultValue>
+</ColumnProxy>
+<ColumnProxy name="cfg_name" id="6B45B5CD-C96A-CB97-B3C8-4080D2242E68">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:33:55 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="create_date" id="D6B9C44D-2D00-6CFF-D98C-5D9AF36891A2">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:33:55 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<defaultValue>sysdate</defaultValue>
+</ColumnProxy>
+</columnProxies>
+<primaryKeys>
+<PrimaryKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.PKProxyOraclev10g" name="pk_dbsrc_cfg" id="0AD8E5A5-29F1-B84E-8E69-7CC4C0154181">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:33:55 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<indexSort>SORTED</indexSort>
+</PrimaryKey>
+</primaryKeys>
+</TableProxyOraclev12c>

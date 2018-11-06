@@ -1,0 +1,15 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<relationalModel class="oracle.dbtools.crest.model.design.relational.RelationalDesign" name="DBSRC Librarian" id="8C51DAA3-DB7B-20CC-2D51-CB9DCACC2C5F" mainViewID="B2F3434A-41D0-FD4C-5C52-7438CB118A6B">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:31:58 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<shouldBeOpen>false</shouldBeOpen>
+<selectedRDBMSSite>3FD120B5-9F4E-6278-D5E2-746D192C8319</selectedRDBMSSite>
+<importDDLFileStamps>
+<importDDLFileStamp class="oracle.dbtools.crest.imports.DDLFileStamp">
+<fileName>01_install.sql</fileName>
+<pathName>C:\Users\Q794008\workspace\dbsrc\sql</pathName>
+<dbType>11</dbType>
+</importDDLFileStamp>
+</importDDLFileStamps>
+</relationalModel>

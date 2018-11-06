@@ -1,0 +1,9 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableSpaceOraclev10g class="oracle.dbtools.crest.model.design.storage.oracle.v10g.TableSpaceOraclev10g" name="users" directorySegmentName="seg_0" id="7F38C331-8115-7466-05DC-31B1A60B1DCB">
+<sourceDDLFile>01_install.sql</sourceDDLFile>
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:33:55 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<emUniformSize>0</emUniformSize>
+<extentManagement>LOCAL</extentManagement>
+</TableSpaceOraclev10g>

@@ -1,0 +1,105 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="8B9D1675-349D-FCF6-7278-540BDE843E1F" name="Database Source Configuration Transform">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:42:51 UTC</createdTime>
+<generatorID>2741E751-C967-58E9-D906-64E84147B2A0</generatorID>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<engineerTo>
+<item key="8C51DAA3-DB7B-20CC-2D51-CB9DCACC2C5F" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="cfg name" id="80D9AB58-3352-E05C-0DC0-D8CC86F6BF9E">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:42:51 UTC</createdTime>
+<generatorID>4A86B397-F7CC-1133-D432-99DAF9E7E649</generatorID>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<engineerTo>
+<item key="8C51DAA3-DB7B-20CC-2D51-CB9DCACC2C5F" value="true"/>
+</engineerTo>
+<referedAttribute>4D3CAB96-4789-BB04-1793-C9673A0034F3</referedAttribute>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>3BB55F49-CEC0-B4D4-A38C-1889E8C11B14</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Transform Name" id="E80511E4-0572-230B-71E4-08DA5659F88B">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:42:51 UTC</createdTime>
+<generatorID>EE40DAE8-9841-16CA-8708-4C30FB68D39B</generatorID>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<engineerTo>
+<item key="8C51DAA3-DB7B-20CC-2D51-CB9DCACC2C5F" value="true"/>
+</engineerTo>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>3BB55F49-CEC0-B4D4-A38C-1889E8C11B14</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Transform Value" id="600608B6-CC46-56ED-AD04-E10F1FBDE8F0">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:42:51 UTC</createdTime>
+<generatorID>320B4CB1-27D4-DBB5-B8E8-1D1481A5C955</generatorID>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<engineerTo>
+<item key="8C51DAA3-DB7B-20CC-2D51-CB9DCACC2C5F" value="true"/>
+</engineerTo>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>1C1918EF-B5E6-7DBC-6C07-6EDD47A3E509</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Object Type Path" id="19A04B50-983B-84AB-4240-55F5C4843666">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:42:51 UTC</createdTime>
+<generatorID>EE456E75-3CF9-2FE0-ACD1-E3F7891CF286</generatorID>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<engineerTo>
+<item key="8C51DAA3-DB7B-20CC-2D51-CB9DCACC2C5F" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>3BB55F49-CEC0-B4D4-A38C-1889E8C11B14</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Comment Text" id="CBDB4AF2-051A-BE48-B4BD-FAB914B36806">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:42:51 UTC</createdTime>
+<generatorID>87DCADA8-EE00-78FA-F688-09176A10C8CB</generatorID>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<engineerTo>
+<item key="8C51DAA3-DB7B-20CC-2D51-CB9DCACC2C5F" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>1C1918EF-B5E6-7DBC-6C07-6EDD47A3E509</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="DF65E4A0-4A25-B79B-FA8D-18EC123D7737" name="uk dbsrc cfg transform 01">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:42:51 UTC</createdTime>
+<generatorID>CB83DF41-92E3-F56B-FDFA-B9DF92A40CFE</generatorID>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<engineerTo>
+<item key="8C51DAA3-DB7B-20CC-2D51-CB9DCACC2C5F" value="true"/>
+</engineerTo>
+<usedAttributes>
+<attributeRef>80D9AB58-3352-E05C-0DC0-D8CC86F6BF9E</attributeRef>
+<attributeRef>E80511E4-0572-230B-71E4-08DA5659F88B</attributeRef>
+<attributeRef>600608B6-CC46-56ED-AD04-E10F1FBDE8F0</attributeRef>
+<attributeRef>19A04B50-983B-84AB-4240-55F5C4843666</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

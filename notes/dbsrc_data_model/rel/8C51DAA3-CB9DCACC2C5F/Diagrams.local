@@ -1,0 +1,4 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<oracle.dbtools.crest.model.design.relational.RelationalDesign>
+   <object objectType="main_view" objectID="B2F3434A-41D0-FD4C-5C52-7438CB118A6B" name="DBSRC Librarian" visible="true"/>
+</oracle.dbtools.crest.model.design.relational.RelationalDesign>

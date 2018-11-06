@@ -1,0 +1,301 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="39C3EE74-F7C9-F6E7-7F19-FAD323686502" name="dbsrc">
+<sourceDDLFile>01_install.sql</sourceDDLFile>
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:34:51 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<importedID>29AE641A-27DD-09FC-4A07-AF893FB6D599</importedID>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="dbsrc_set_no" id="2BE07380-1DB5-F56A-9656-094523FB395C">
+<sourceDDLFile>01_install.sql</sourceDDLFile>
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:34:51 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<importedID>A9ED1A34-9259-D98C-6CD9-DB7D618E07BD</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>E525FFE2-4AD6-E168-25DA-58C0805D5E2B</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="cfg_name" id="40964BB9-317B-6061-C481-DF23B6A64EB0">
+<sourceDDLFile>01_install.sql</sourceDDLFile>
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:34:51 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<importedID>6AA8E547-3DA7-2430-AD39-08931C3841BB</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>3BB55F49-CEC0-B4D4-A38C-1889E8C11B14</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="9C069602-54BD-5DC3-D785-A678CC866CA2" referredColumn="39F526F3-E662-D562-754C-DA791360CFE5"/>
+</associations>
+</Column>
+<Column name="order_no" id="023E139A-D944-D720-62A2-56F897ECF4CE">
+<sourceDDLFile>01_install.sql</sourceDDLFile>
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:34:51 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<importedID>74A104D7-5A5A-4119-37D5-C964712E6E07</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>E525FFE2-4AD6-E168-25DA-58C0805D5E2B</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="object_owner" id="415D2D68-1017-CF08-3874-325ADDDF0078">
+<sourceDDLFile>01_install.sql</sourceDDLFile>
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:34:51 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<importedID>B04FD07D-9C0B-45BD-45DF-903D4D40DCF0</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>2DE79570-78F2-66FF-9293-FB909AC61141</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ddl_type" id="838E8F6A-D277-D725-460F-7EBB88DF58CA">
+<sourceDDLFile>01_install.sql</sourceDDLFile>
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:34:51 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<importedID>D566B365-5940-13FB-5E9C-8912CD90E84B</importedID>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>3BB55F49-CEC0-B4D4-A38C-1889E8C11B14</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="9C069602-54BD-5DC3-D785-A678CC866CA2" referredColumn="5DC359DE-BFF7-D63D-E34C-908236AE0BAC"/>
+</associations>
+</Column>
+<Column name="object_name" id="569E4846-E2FC-6690-F609-ED5AB87A51A9">
+<sourceDDLFile>01_install.sql</sourceDDLFile>
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:34:51 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<importedID>4F52C709-D184-6765-798B-59582A1180EA</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>2DE79570-78F2-66FF-9293-FB909AC61141</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="dbsrc_text_raw" id="D525FEA4-D469-0E70-2C1A-C447E76EE4F8">
+<sourceDDLFile>01_install.sql</sourceDDLFile>
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:34:51 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<importedID>627FF574-58B6-8511-84F4-A37E5980A7DD</importedID>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT028</logicalDatatype>
+<domain>4C1A2F85-5DE4-D708-17D0-76BF65FB626B</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="dbsrc_text_cooked" id="CE16123A-D5E1-BFA5-6DE9-D0DB1B3CB204">
+<sourceDDLFile>01_install.sql</sourceDDLFile>
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:34:51 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<importedID>D9F2A427-FA08-62B6-D5CC-835F4BF2FF38</importedID>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT028</logicalDatatype>
+<domain>4C1A2F85-5DE4-D708-17D0-76BF65FB626B</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="dbscript_include_flag" id="481E3198-C86C-5935-BA4C-3E2A2C82CA97">
+<sourceDDLFile>01_install.sql</sourceDDLFile>
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:34:51 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<importedID>86CEA014-5B70-5AC7-979E-18B2F79FA6AC</importedID>
+<constraintName>ck_dbsrc_01</constraintName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>8121DA18-3928-8634-C394-53DEC6F9D3E9</domain>
+<listOfValues>
+<valueDef value="N" description=""/>
+<valueDef value="Y" description=""/>
+</listOfValues>
+<defaultValue>&apos;Y&apos;</defaultValue>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="post_prcs_order_no_list" id="4624F319-8D58-E7AC-49FA-5CBAE1C0B96A">
+<sourceDDLFile>01_install.sql</sourceDDLFile>
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:34:51 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<importedID>EF16DFF2-9B24-E937-3EC4-72810478B72E</importedID>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>38F8104A-6C5B-A30E-50B9-8B0482D0C144</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="dba_obj_created_date" id="430E60EE-CFC8-328F-03DB-08464F150C0F">
+<sourceDDLFile>01_install.sql</sourceDDLFile>
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:34:51 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<importedID>D164F2BA-96C4-76B5-CBCD-968FFA1F5B62</importedID>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<domain>9B7BAE15-558E-2B08-4928-3EBE36472A02</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="dba_obj_last_ddl_time" id="A126EFC6-846B-9488-9863-E8BBBDE9C2E4">
+<sourceDDLFile>01_install.sql</sourceDDLFile>
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:34:51 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<importedID>3D109122-83B3-9BBD-E18F-39DDBECDE278</importedID>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<domain>9B7BAE15-558E-2B08-4928-3EBE36472A02</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="dba_obj_status" id="1FFC0B51-5C9E-76C7-E8FB-FB4E1FAD572B">
+<sourceDDLFile>01_install.sql</sourceDDLFile>
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:34:51 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<importedID>454A0212-9187-6DC7-EAD1-6AF5ABE17141</importedID>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>7A958C7B-8D76-422E-6C60-52BD96C7E72E</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="create_date" id="1BDB1A6E-1841-C25C-B93E-D8E5693BC399">
+<sourceDDLFile>01_install.sql</sourceDDLFile>
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:34:51 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<importedID>7A9941D1-1FF6-723C-F48C-6517E766617F</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<domain>9B7BAE15-558E-2B08-4928-3EBE36472A02</domain>
+<defaultValue>sysdate</defaultValue>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="create_user" id="7FCFDD72-25AD-683D-AD63-785971D3EA54">
+<sourceDDLFile>01_install.sql</sourceDDLFile>
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:34:51 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<importedID>6982EB7F-D7C3-D9B6-440D-9937851A26F5</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>2B27B6CF-232A-847C-E739-D961A2B44523</domain>
+<defaultValue>user</defaultValue>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="create_process" id="7F6617DD-7424-1F36-4E70-0DDA5BE4C632">
+<sourceDDLFile>01_install.sql</sourceDDLFile>
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:34:51 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<importedID>52CEF32A-EAFA-F00A-9A30-E6D6B73996B1</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>2DE79570-78F2-66FF-9293-FB909AC61141</domain>
+<defaultValue>sys_context(&apos;userenv&apos;, &apos;os_user&apos;) ||&apos;@&apos;|| sys_context(&apos;userenv&apos;, &apos;host&apos;)||&apos;/&apos;|| sys_context(&apos;userenv&apos;, &apos;module&apos;)||&apos;:&apos;|| sys_context(&apos;userenv&apos;, &apos;action&apos;)||&apos;@&apos;|| sys_context(&apos;userenv&apos;, &apos;db_name&apos;)</defaultValue>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="DE3D20F2-95E6-C911-65A3-E7C927EAFEF8" name="pk_dbsrc">
+<sourceDDLFile>01_install.sql</sourceDDLFile>
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:34:51 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<importedID>868B6F8E-1FD4-D090-FA7F-C54DB8E7F417</importedID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="2BE07380-1DB5-F56A-9656-094523FB395C"/>
+<colUsage columnID="40964BB9-317B-6061-C481-DF23B6A64EB0"/>
+<colUsage columnID="023E139A-D944-D720-62A2-56F897ECF4CE"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="E4494A75-C2DB-365C-C230-D5069B522141" name="x_dbsrc_01">
+<sourceDDLFile>01_install.sql</sourceDDLFile>
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:34:51 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<importedID>FA8B5D80-1A6A-DDCD-22A2-F0DCC315ED8F</importedID>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="481E3198-C86C-5935-BA4C-3E2A2C82CA97"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="88C4E63A-46A1-9D7C-9EB8-25E4A3EAA922" name="x_dbsrc_02">
+<sourceDDLFile>01_install.sql</sourceDDLFile>
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:34:51 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<importedID>C64770BC-6EDD-2BAB-6B7F-A9D5A895605F</importedID>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="40964BB9-317B-6061-C481-DF23B6A64EB0"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="E08A6088-6D31-5918-891B-BAA308630B1E" name="x_dbsrc_03">
+<sourceDDLFile>01_install.sql</sourceDDLFile>
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:34:51 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<importedID>D6FAB822-9E5E-5082-0C37-DF5F4303A78F</importedID>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="838E8F6A-D277-D725-460F-7EBB88DF58CA"/>
+<colUsage columnID="569E4846-E2FC-6690-F609-ED5AB87A51A9"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="25EC55FC-A389-23DA-C966-05A8A7E752A9" name="x_dbsrc_04">
+<sourceDDLFile>01_install.sql</sourceDDLFile>
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:34:51 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<importedID>58E3B458-012E-A411-8AF4-B019AAE7D021</importedID>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="023E139A-D944-D720-62A2-56F897ECF4CE"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="72FD54D3-C6DE-7558-9400-274082E4014C" name="fk_dbsrc_01">
+<createdBy>q794008</createdBy>
+<createdTime>2018-10-29 13:34:51 UTC</createdTime>
+<ownerDesignName>dbsrc_data_model</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="40964BB9-317B-6061-C481-DF23B6A64EB0"/>
+<colUsage columnID="838E8F6A-D277-D725-460F-7EBB88DF58CA"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

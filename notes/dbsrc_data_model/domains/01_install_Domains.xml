@@ -1,0 +1,117 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<DomainFile class="oracle.dbtools.crest.model.design.DomainFileWrapper" fileName="01_install_Domains">
+   <domains>
+      <Domain class="oracle.dbtools.crest.model.design.Domain" name="VARCHAR_0_0_2000" id="1C1918EF-B5E6-7DBC-6C07-6EDD47A3E509">
+         <createdBy>q794008</createdBy>
+         <createdTime>2018-10-29 13:34:51 UTC</createdTime>
+         <ownerDesignName>dbsrc_data_model</ownerDesignName>
+         <avTSortOrder>0</avTSortOrder>
+         <dataTypePrecision>0</dataTypePrecision>
+         <dataTypeScale>0</dataTypeScale>
+         <dataTypeSize>2000</dataTypeSize>
+         <fileName>01_install_Domains</fileName>
+         <logicalDatatype>LOGDT024</logicalDatatype>
+      </Domain>
+      <Domain class="oracle.dbtools.crest.model.design.Domain" name="VARCHAR_0_0_80 char" id="2B27B6CF-232A-847C-E739-D961A2B44523">
+         <createdBy>q794008</createdBy>
+         <createdTime>2018-10-29 13:34:51 UTC</createdTime>
+         <ownerDesignName>dbsrc_data_model</ownerDesignName>
+         <avTSortOrder>0</avTSortOrder>
+         <dataTypePrecision>0</dataTypePrecision>
+         <dataTypeScale>0</dataTypeScale>
+         <dataTypeSize>80 char</dataTypeSize>
+         <fileName>01_install_Domains</fileName>
+         <logicalDatatype>LOGDT024</logicalDatatype>
+      </Domain>
+      <Domain class="oracle.dbtools.crest.model.design.Domain" name="VARCHAR_0_0_200 char" id="2DE79570-78F2-66FF-9293-FB909AC61141">
+         <createdBy>q794008</createdBy>
+         <createdTime>2018-10-29 13:34:51 UTC</createdTime>
+         <ownerDesignName>dbsrc_data_model</ownerDesignName>
+         <avTSortOrder>0</avTSortOrder>
+         <dataTypePrecision>0</dataTypePrecision>
+         <dataTypeScale>0</dataTypeScale>
+         <dataTypeSize>200 char</dataTypeSize>
+         <fileName>01_install_Domains</fileName>
+         <logicalDatatype>LOGDT024</logicalDatatype>
+      </Domain>
+      <Domain class="oracle.dbtools.crest.model.design.Domain" name="VARCHAR_0_0_1000" id="38F8104A-6C5B-A30E-50B9-8B0482D0C144">
+         <createdBy>q794008</createdBy>
+         <createdTime>2018-10-29 13:34:51 UTC</createdTime>
+         <ownerDesignName>dbsrc_data_model</ownerDesignName>
+         <avTSortOrder>0</avTSortOrder>
+         <dataTypePrecision>0</dataTypePrecision>
+         <dataTypeScale>0</dataTypeScale>
+         <dataTypeSize>1000</dataTypeSize>
+         <fileName>01_install_Domains</fileName>
+         <logicalDatatype>LOGDT024</logicalDatatype>
+      </Domain>
+      <Domain class="oracle.dbtools.crest.model.design.Domain" name="VARCHAR_0_0_80" id="3BB55F49-CEC0-B4D4-A38C-1889E8C11B14">
+         <createdBy>q794008</createdBy>
+         <createdTime>2018-10-29 13:34:51 UTC</createdTime>
+         <ownerDesignName>dbsrc_data_model</ownerDesignName>
+         <avTSortOrder>0</avTSortOrder>
+         <dataTypePrecision>0</dataTypePrecision>
+         <dataTypeScale>0</dataTypeScale>
+         <dataTypeSize>80</dataTypeSize>
+         <fileName>01_install_Domains</fileName>
+         <logicalDatatype>LOGDT024</logicalDatatype>
+      </Domain>
+      <Domain class="oracle.dbtools.crest.model.design.Domain" name="CLOB_0_0_0" id="4C1A2F85-5DE4-D708-17D0-76BF65FB626B">
+         <createdBy>q794008</createdBy>
+         <createdTime>2018-10-29 13:34:51 UTC</createdTime>
+         <ownerDesignName>dbsrc_data_model</ownerDesignName>
+         <avTSortOrder>0</avTSortOrder>
+         <fileName>01_install_Domains</fileName>
+         <logicalDatatype>LOGDT028</logicalDatatype>
+      </Domain>
+      <Domain class="oracle.dbtools.crest.model.design.Domain" name="VARCHAR_0_0_7" id="7A958C7B-8D76-422E-6C60-52BD96C7E72E">
+         <createdBy>q794008</createdBy>
+         <createdTime>2018-10-29 13:34:51 UTC</createdTime>
+         <ownerDesignName>dbsrc_data_model</ownerDesignName>
+         <avTSortOrder>0</avTSortOrder>
+         <dataTypePrecision>0</dataTypePrecision>
+         <dataTypeScale>0</dataTypeScale>
+         <dataTypeSize>7</dataTypeSize>
+         <fileName>01_install_Domains</fileName>
+         <logicalDatatype>LOGDT024</logicalDatatype>
+      </Domain>
+      <Domain class="oracle.dbtools.crest.model.design.Domain" name="VARCHAR_0_0_1 char" id="8121DA18-3928-8634-C394-53DEC6F9D3E9">
+         <createdBy>q794008</createdBy>
+         <createdTime>2018-10-29 13:34:51 UTC</createdTime>
+         <ownerDesignName>dbsrc_data_model</ownerDesignName>
+         <avTSortOrder>0</avTSortOrder>
+         <dataTypePrecision>0</dataTypePrecision>
+         <dataTypeScale>0</dataTypeScale>
+         <dataTypeSize>1 char</dataTypeSize>
+         <fileName>01_install_Domains</fileName>
+         <logicalDatatype>LOGDT024</logicalDatatype>
+      </Domain>
+      <Domain class="oracle.dbtools.crest.model.design.Domain" name="Date_0_0_0" id="9B7BAE15-558E-2B08-4928-3EBE36472A02">
+         <createdBy>q794008</createdBy>
+         <createdTime>2018-10-29 13:34:51 UTC</createdTime>
+         <ownerDesignName>dbsrc_data_model</ownerDesignName>
+         <avTSortOrder>0</avTSortOrder>
+         <fileName>01_install_Domains</fileName>
+         <logicalDatatype>LOGDT007</logicalDatatype>
+      </Domain>
+      <Domain class="oracle.dbtools.crest.model.design.Domain" name="NUMERIC_0_0_0" id="E525FFE2-4AD6-E168-25DA-58C0805D5E2B">
+         <createdBy>q794008</createdBy>
+         <createdTime>2018-10-29 13:34:51 UTC</createdTime>
+         <ownerDesignName>dbsrc_data_model</ownerDesignName>
+         <avTSortOrder>0</avTSortOrder>
+         <fileName>01_install_Domains</fileName>
+         <logicalDatatype>LOGDT019</logicalDatatype>
+      </Domain>
+      <Domain class="oracle.dbtools.crest.model.design.Domain" name="VARCHAR_0_0_2000 char" id="ED1ADA82-7C6D-C29D-442A-D611A0F815C3">
+         <createdBy>q794008</createdBy>
+         <createdTime>2018-10-29 13:34:51 UTC</createdTime>
+         <ownerDesignName>dbsrc_data_model</ownerDesignName>
+         <avTSortOrder>0</avTSortOrder>
+         <dataTypePrecision>0</dataTypePrecision>
+         <dataTypeScale>0</dataTypeScale>
+         <dataTypeSize>2000 char</dataTypeSize>
+         <fileName>01_install_Domains</fileName>
+         <logicalDatatype>LOGDT024</logicalDatatype>
+      </Domain>
+   </domains>
+</DomainFile>
